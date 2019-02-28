@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -56,18 +57,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void showFragmentByIndex(int index) {
-        if (transaction == null) {
-            transaction = fragmentManager.beginTransaction();
-        }
+
         if (index == 0) {
-            transaction.replace(R.id.fl_layout, homeFragment);
+            transaction.add(R.id.fl_layout, homeFragment);
+
         } else if (index == 1) {
-            transaction.replace(R.id.fl_layout,shoppingCartFragment);
+            transaction.add(R.id.fl_layout,shoppingCartFragment);
+            Log.i(TAG, "add shopping");
         } else if (index == 2) {
-            transaction.replace(R.id.fl_layout, mineFragment);
+            transaction.add(R.id.fl_layout, mineFragment);
         }
         transaction.commit();
-        transaction = null;
+
     }
 
     @Override
@@ -90,15 +91,42 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.tv_home:
                 setSelectPage(0);
-                showFragmentByIndex(0);
+
+                if(homeFragment!=null){
+                    transaction.show(homeFragment);
+                    Log.d(TAG, "okok2 ");
+                }
+                else {
+                    showFragmentByIndex(0);
+                }
+
                 break;
             case R.id.tv_shopping_cart:
                 setSelectPage(1);
-                showFragmentByIndex(1);
+
+
+
+               transaction.hide(homeFragment);
+
+
+                    showFragmentByIndex(1);
+
+
+               transaction.show(shoppingCartFragment);
+                    Log.i(TAG, "show ff");
+
                 break;
             case R.id.tv_mine:
                 setSelectPage(2);
-                showFragmentByIndex(2);
+
+
+                if(mineFragment!=null){
+                    transaction.show(mineFragment);
+                }
+                else {
+                    showFragmentByIndex(2);
+                }
+
                 break;
         }
     }
