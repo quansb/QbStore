@@ -1,4 +1,4 @@
-package com.example.quansb.qbstore.activity.base;
+package com.example.quansb.qbstore.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

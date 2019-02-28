@@ -2,16 +2,18 @@ package com.example.quansb.qbstore.activity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
-import com.example.quansb.qbstore.activity.base.BaseActivity;
-import com.example.quansb.qbstore.view.fragment.base.menu.HomeFragment;
-import com.example.quansb.qbstore.view.fragment.base.menu.MineFragment;
-import com.example.quansb.qbstore.view.fragment.base.menu.ShoppingCartFragment;
+
+import com.example.quansb.qbstore.base.BaseActivity;
+import com.example.quansb.qbstore.fragment.HomeFragment;
+import com.example.quansb.qbstore.fragment.MineFragment;
+import com.example.quansb.qbstore.fragment.ShoppingCartFragment;
 
 import butterknife.Bind;
 
@@ -41,29 +43,31 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
 
-         fragmentManager = getSupportFragmentManager();
-         transaction = fragmentManager.beginTransaction();
+        fragmentManager = getSupportFragmentManager();
+        transaction = fragmentManager.beginTransaction();
         homeFragment = new HomeFragment();
         mineFragment = new MineFragment();
         shoppingCartFragment = new ShoppingCartFragment();
         showFragmentByIndex(0);
     }
 
+    private void hideFragment(Fragment fragment, FragmentTransaction transaction) {
+        transaction.hide(fragment);
+    }
+
     private void showFragmentByIndex(int index) {
-        if(transaction==null){
-            transaction=fragmentManager.beginTransaction();
+        if (transaction == null) {
+            transaction = fragmentManager.beginTransaction();
         }
         if (index == 0) {
-            transaction.replace(R.id.fl_layout,homeFragment);
-        }
-        else if(index==1){
-           transaction.replace(R.id.fl_layout,shoppingCartFragment);
-        }
-        else if(index==2){
-            transaction.replace(R.id.fl_layout,mineFragment);
+            transaction.replace(R.id.fl_layout, homeFragment);
+        } else if (index == 1) {
+            transaction.replace(R.id.fl_layout,shoppingCartFragment);
+        } else if (index == 2) {
+            transaction.replace(R.id.fl_layout, mineFragment);
         }
         transaction.commit();
-        transaction=null;
+        transaction = null;
     }
 
     @Override

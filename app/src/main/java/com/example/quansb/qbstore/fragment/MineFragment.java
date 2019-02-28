@@ -1,4 +1,4 @@
-package com.example.quansb.qbstore.view.fragment.base.menu;
+package com.example.quansb.qbstore.fragment;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
-import com.example.quansb.qbstore.view.fragment.base.BaseFragment;
+import com.example.quansb.qbstore.base.BaseFragment;
+
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
