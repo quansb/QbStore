@@ -86,8 +86,8 @@
          android:layout_height="wrap_content"
          android:orientation="horizontal"
          android:layout_marginTop="@dimen/dimen_20dp"
-         android:layout_marginLeft="@dimen/dimen_2dp"
-         android:layout_marginRight="@dimen/dimen_2dp"
+
+
          >
 
          <TextView
@@ -98,7 +98,7 @@
              android:drawableTop="@drawable/ic_payment_red"
              android:text="@string/payment"
             android:drawablePadding="@dimen/dimen_5dp"
-             android:textSize="@dimen/dimen_10sp"
+             android:textSize="@dimen/dimen_12sp"
              />
 
          <TextView
@@ -107,8 +107,8 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:drawableTop="@drawable/ic_drop_shipping_red2"
-             android:text="@string/wait_goods"
-             android:textSize="@dimen/dimen_10sp"
+             android:text="@string/deliver_goods"
+             android:textSize="@dimen/dimen_12sp"
              android:drawablePadding="@dimen/dimen_5dp"
              />
 
@@ -119,8 +119,8 @@
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
              android:drawableTop="@drawable/ic_for_the_goods_red"
-             android:text="@string/deliver_goods"
-             android:textSize="@dimen/dimen_10sp"
+             android:text="@string/wait_goods"
+             android:textSize="@dimen/dimen_12sp"
              android:drawablePadding="@dimen/dimen_5dp"
              />
 
@@ -129,9 +129,9 @@
              android:layout_weight="1"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
-             android:drawableTop="@drawable/ic_evaluation_red"
+             android:drawableTop="@drawable/ic_evaluation_red2"
              android:text="@string/evaluation"
-             android:textSize="@dimen/dimen_10sp"
+             android:textSize="@dimen/dimen_12sp"
              android:drawablePadding="@dimen/dimen_5dp"
              />
          <TextView
@@ -141,7 +141,7 @@
              android:layout_height="wrap_content"
              android:drawableTop="@drawable/ic_after_sales_red"
              android:text="@string/after_sales"
-             android:textSize="@dimen/dimen_10sp"
+             android:textSize="@dimen/dimen_12sp"
              android:drawablePadding="@dimen/dimen_5dp"
              />
 

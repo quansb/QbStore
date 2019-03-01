@@ -7,8 +7,10 @@
     <string name="login">登录/注册 〉</string>
     <string name="order">我的订单</string>
     <string name="payment">代付款</string>
-    <string name="after_sales"> 退款 / 售后 </string>
-    <string name="evaluation">评价</string>
+    <string name="after_sales"> 售后</string>
+    <string name="evaluation"> 评价</string>
     <string name="deliver_goods">待发货</string>
     <string name="wait_goods">待收货</string>
+    <string name="account">请输入账户</string>
+    <string name="password">请输入密码</string>
 </resources>

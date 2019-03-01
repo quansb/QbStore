@@ -1,5 +1,6 @@
 package com.example.quansb.qbstore.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,18 +8,20 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
+import com.example.quansb.qbstore.activity.LoginActivity;
 import com.example.quansb.qbstore.base.BaseFragment;
-
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MineFragment extends BaseFragment implements View.OnClickListener {
 
-    private Drawable drawable;
+    @Bind(R.id.ll_login)
+    LinearLayout llLogin;
     @Bind(R.id.tv_login)
     TextView tvLogin;
 
@@ -38,6 +41,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
 
         tvLogin.setOnClickListener(this);
+        llLogin.setOnClickListener(this);
     }
 
     @Override
@@ -56,9 +60,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-     /*   drawable = getResources().getDrawable(R.drawable.ic_login);
-        drawable.setBounds(0, 0,200,200); //直角坐标系第四象限放图片
-        tvLogin.setCompoundDrawables(null, drawable, null, null);
-*/
+
+        switch (v.getId()){
+            case R.id.ll_login:
+                Intent intent=new Intent(getActivity(), LoginActivity.class);
+                startActivity(intent);
+                break;
+        }
+
     }
 }

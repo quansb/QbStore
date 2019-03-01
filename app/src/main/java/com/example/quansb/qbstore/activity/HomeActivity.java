@@ -1,5 +1,6 @@
 package com.example.quansb.qbstore.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,38 +38,22 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
     protected void initData() {
-
+        homeFragment=new HomeFragment();
         fragmentManager = getSupportFragmentManager();
         transaction = fragmentManager.beginTransaction();
-        homeFragment = new HomeFragment();
-        mineFragment = new MineFragment();
-        shoppingCartFragment = new ShoppingCartFragment();
-        showFragmentByIndex(0);
+        transaction.replace(R.id.fl_layout,homeFragment);
+        transaction.commit();
     }
 
     private void hideFragment(Fragment fragment, FragmentTransaction transaction) {
+
+        if(fragment!=null){
         transaction.hide(fragment);
-    }
-
-    private void showFragmentByIndex(int index) {
-
-        if (index == 0) {
-            transaction.add(R.id.fl_layout, homeFragment);
-
-        } else if (index == 1) {
-            transaction.add(R.id.fl_layout,shoppingCartFragment);
-            Log.i(TAG, "add shopping");
-        } else if (index == 2) {
-            transaction.add(R.id.fl_layout, mineFragment);
         }
-        transaction.commit();
-
     }
 
     @Override
@@ -86,49 +71,50 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
 
         switch (v.getId()) {
             case R.id.tv_home:
                 setSelectPage(0);
-
-                if(homeFragment!=null){
-                    transaction.show(homeFragment);
-                    Log.d(TAG, "okok2 ");
+                hideFragment(shoppingCartFragment,fragmentTransaction);
+                hideFragment(mineFragment,fragmentTransaction);
+                if(homeFragment==null){
+                    homeFragment=new HomeFragment();
+                    fragmentTransaction.add(R.id.fl_layout,homeFragment);
                 }
                 else {
-                    showFragmentByIndex(0);
+                    fragmentTransaction.show(homeFragment);
                 }
-
                 break;
             case R.id.tv_shopping_cart:
                 setSelectPage(1);
-
-
-
-               transaction.hide(homeFragment);
-
-
-                    showFragmentByIndex(1);
-
-
-               transaction.show(shoppingCartFragment);
-                    Log.i(TAG, "show ff");
+                hideFragment(homeFragment,fragmentTransaction);
+                hideFragment(mineFragment,fragmentTransaction);
+                if(shoppingCartFragment==null){
+                    shoppingCartFragment=new ShoppingCartFragment();
+                    fragmentTransaction.add(R.id.fl_layout,shoppingCartFragment);
+                }
+                else {
+                    fragmentTransaction.show(shoppingCartFragment);
+                }
 
                 break;
             case R.id.tv_mine:
                 setSelectPage(2);
 
-
-                if(mineFragment!=null){
-                    transaction.show(mineFragment);
+        hideFragment(homeFragment,fragmentTransaction);
+        hideFragment(shoppingCartFragment,fragmentTransaction);
+                if(mineFragment==null){
+                    mineFragment=new MineFragment();
+                    fragmentTransaction.add(R.id.fl_layout,mineFragment);
                 }
                 else {
-                    showFragmentByIndex(2);
+                    fragmentTransaction.show(mineFragment);
                 }
 
                 break;
         }
+        fragmentTransaction.commit();
     }
 
     private void setSelectPage(int i) {
