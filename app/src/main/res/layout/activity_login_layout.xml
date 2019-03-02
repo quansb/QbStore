@@ -11,6 +11,7 @@
 
     >
     <ImageView
+        android:id="@+id/iv_back"
         android:layout_width="@dimen/dimen_30dp"
         android:layout_height="@dimen/dimen_30dp"
         android:src="@drawable/ic_back3"
@@ -43,6 +44,7 @@
     android:layout_marginTop="@dimen/dimen_20dp"
     >
         <EditText
+            android:id="@+id/et_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/account"
@@ -58,6 +60,7 @@
 </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_login_bt_layout"
             android:layout_marginTop="@dimen/dimen_30dp"
             android:layout_marginRight="@dimen/dimen_20dp"
             android:layout_marginLeft="@dimen/dimen_20dp"

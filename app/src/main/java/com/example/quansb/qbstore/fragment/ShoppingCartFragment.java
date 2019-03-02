@@ -17,7 +17,7 @@ public class ShoppingCartFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view=inflater.inflate(R.layout.fragment_shopping_cart,container,false);
+        View view=inflater.inflate(R.layout.fragment_shopping_cart_layout,container,false);
         return view;
     }
 }

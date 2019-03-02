@@ -1,12 +1,10 @@
 package com.example.quansb.qbstore.activity;
 
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -38,6 +36,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        int id=getIntent().getIntExtra("id",0);
+        if(id==1){
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+            transaction.show(mineFragment);
+            transaction.commit();
+        }
+
+
+
     }
 
     @Override
@@ -66,7 +74,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_home;
+        return R.layout.activity_home_layout;
     }
 
     @Override
