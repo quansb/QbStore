@@ -18,4 +18,8 @@
     <string name="personal_information">个人信息</string>
     <string name="address">地址管理</string>
     <string name="about">关于</string>
+    <string name="network_no_data">数据获取不到</string>
+    <string name="input_canno_null">请输入合法的账号和密码</string>
+    <string name="only_login">登录</string>
+    <string name="register">注册</string>
 </resources>

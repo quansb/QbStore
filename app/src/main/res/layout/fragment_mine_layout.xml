@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.example.quansb.qbstore.view.CircleImageView
+        <com.mysdk.view.CircleImageView
             android:layout_width="@dimen/dimen_70dp"
             android:layout_height="@dimen/dimen_70dp"
             android:layout_marginBottom="@dimen/dimen_15dp"

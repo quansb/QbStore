@@ -3,7 +3,7 @@
     package="com.example.quansb.qbstore">
 
     <application
-
+       android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -27,6 +27,10 @@
 
         </activity>
         <activity android:name=".activity.SettingActivity"
+            android:launchMode="singleTask"
+            >
+        </activity>
+        <activity android:name=".activity.RegisterActivity"
             android:launchMode="singleTask"
             >
         </activity>

@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">MySDK</string>
-    <string name="listview_footer_hint_ready">释放加载更多</string>
-    <string name="listview_loadmore">查看更多</string>
-</resources>
