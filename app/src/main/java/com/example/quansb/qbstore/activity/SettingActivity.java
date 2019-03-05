@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.base.BaseActivity;
+import com.example.quansb.qbstore.util.JumpActivityUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,7 +24,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void initView() {
         tvBack.setOnClickListener(this);
-
+        tvBack.setText(getString(R.string.setting));
     }
 
     @Override
@@ -42,10 +43,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.tv_back:
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra("id", 1);
-                startActivity(intent);
-
+                JumpActivityUtil.goToHomeActivity(this);
                 break;
         }
     }

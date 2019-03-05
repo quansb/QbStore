@@ -1,5 +1,6 @@
 package com.example.quansb.qbstore.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,18 +16,24 @@ import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.activity.LoginActivity;
 import com.example.quansb.qbstore.activity.SettingActivity;
 import com.example.quansb.qbstore.base.BaseFragment;
+import com.example.quansb.qbstore.util.JumpActivityUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MineFragment extends BaseFragment implements View.OnClickListener {
 
+   private Context mContext;
     @Bind(R.id.ll_login)
     LinearLayout llLogin;
     @Bind(R.id.tv_login)
     TextView tvLogin;
     @Bind(R.id.iv_setting)
     ImageView ivSetting;
+    @Bind(R.id.tv_order)
+    TextView tvOrder;
+    @Bind(R.id.tv_all_order)
+    TextView tvAllOrder;
 
     @Nullable
     @Override
@@ -42,10 +49,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        mContext=getActivity();
         tvLogin.setOnClickListener(this);
         llLogin.setOnClickListener(this);
         ivSetting.setOnClickListener(this);
+        tvAllOrder.setOnClickListener(this);
+        tvOrder.setOnClickListener(this);
     }
 
     @Override
@@ -67,18 +76,24 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.ll_login:
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent);
+                JumpActivityUtil.goToLoginActivity(mContext); // 跳转到登录界面
                 break;
             case R.id.tv_login:
-                Intent intent2 = new Intent(getActivity(), LoginActivity.class);
-                startActivity(intent2);
+                JumpActivityUtil.goToLoginActivity(mContext);// 跳转到登录界面
                 break;
 
             case R.id.iv_setting:
-                Intent intent3 = new Intent(getActivity(), SettingActivity.class);
-                startActivity(intent3);
+               JumpActivityUtil.goToSettingActivity(mContext);// 跳转到设置界面
                 break;
+
+            case R.id.tv_all_order:
+                JumpActivityUtil.goToOrderActivity(mContext);// 跳转到全部订单界面
+                break;
+            case R.id.tv_order:
+                JumpActivityUtil.goToOrderActivity(mContext);// 跳转到全部订单界面
+                break;
+
+
         }
 
     }

@@ -110,4 +110,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
         }, UserInfo.class);
     }
+
+
+
+
+
+
+
+
+
 }

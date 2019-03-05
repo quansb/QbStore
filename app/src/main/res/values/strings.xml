@@ -22,4 +22,7 @@
     <string name="input_canno_null">请输入合法的账号和密码</string>
     <string name="only_login">登录</string>
     <string name="register">注册</string>
+    <string name="regiseter">注册</string>
+    <string name="common">公共</string>
+    <string name="all_order">全部订单</string>
 </resources>

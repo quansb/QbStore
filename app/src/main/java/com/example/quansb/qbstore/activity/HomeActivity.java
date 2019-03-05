@@ -17,6 +17,10 @@ import com.example.quansb.qbstore.fragment.ShoppingCartFragment;
 
 import butterknife.Bind;
 
+
+/**
+ * app的主要activity，关联3个frament。
+ */
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private Drawable drawable = null;
     private HomeFragment homeFragment;
