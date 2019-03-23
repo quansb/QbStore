@@ -94,6 +94,7 @@
          >
 
          <TextView
+             android:id="@+id/tv_pay"
              android:layout_weight="1"
              android:gravity="center"
              android:layout_width="wrap_content"
@@ -105,6 +106,7 @@
              />
 
          <TextView
+             android:id="@+id/tv_deliver_goods"
              android:layout_weight="1"
              android:gravity="center"
              android:layout_width="wrap_content"
@@ -117,6 +119,7 @@
 
 
          <TextView
+             android:id="@+id/tv_take_back_goods"
              android:gravity="center"
              android:layout_weight="1"
              android:layout_width="wrap_content"
@@ -128,6 +131,7 @@
              />
 
          <TextView
+             android:id="@+id/tv_evaluate"
              android:gravity="center"
              android:layout_weight="1"
              android:layout_width="wrap_content"
@@ -138,6 +142,7 @@
              android:drawablePadding="@dimen/dimen_5dp"
              />
          <TextView
+             android:id="@+id/tv_after_sales"
              android:layout_weight="1"
              android:gravity="center"
              android:layout_width="wrap_content"
@@ -156,10 +161,5 @@
             android:layout_above="@+id/ll_layout"
             android:layout_marginTop="@dimen/dimen_20dp"
             />
-
-
     </LinearLayout>
-
-
-
 </RelativeLayout>

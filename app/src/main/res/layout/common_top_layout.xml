@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:id="@+id/common_top_layout"
     >
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -20,19 +20,27 @@
             android:textColor="@color/color_000000"
             android:layout_marginTop="@dimen/dimen_12dp"
             android:layout_marginLeft="@dimen/dimen_8dp"
-            android:layout_marginBottom="@dimen/dimen_8dp"
             android:drawablePadding="@dimen/dimen_8dp"
             />
 
+        <TextView
+            android:id="@+id/tv_common_centre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/common"
+            android:textSize="@dimen/dimen_18sp"
+            android:textColor="@color/color_000000"
+            android:layout_centerInParent="true"
+
+            />
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_1dp"
             android:background="@color/color_cdcdcd"
             android:layout_below="@+id/tv_back"
-            android:layout_marginTop="@dimen/dimen_5dp"
+            android:layout_marginTop="@dimen/dimen_12dp"
             />
-
-    </LinearLayout>
+    </RelativeLayout>
 
 
 

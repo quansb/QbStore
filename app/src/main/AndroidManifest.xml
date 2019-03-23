@@ -40,6 +40,21 @@
             android:launchMode="singleTask"
             >
         </activity>
+        <activity android:name=".activity.EvaluationActivity"
+            android:launchMode="singleTask"
+            />
+        <activity android:name=".activity.TakeBackGoodsActivity"
+            android:launchMode="singleTask"
+            />
+        <activity android:name=".activity.AfterSalesActivity"
+            android:launchMode="singleTask"
+            />
+        <activity android:name=".activity.DeliverGoodsActivity"
+
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.PaymentActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".activity.PersonalInformationActivity" />
 
     </application>
 

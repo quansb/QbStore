@@ -12,6 +12,7 @@ import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.base.BaseActivity;
 import com.example.quansb.qbstore.entity.UserInfo;
 import com.example.quansb.qbstore.network.RequestCenter;
+import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.Logger;
 import com.mysdk.okhttp.listener.DisposeDataListener;
 import com.mysdk.util.StringUtils;
@@ -75,16 +76,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         switch (v.getId()) {
             case R.id.iv_back:
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra("id", 1);
-                startActivity(intent);
+                JumpActivityUtil.goToHomeActivity(this);
                 break;
             case R.id.ll_login_bt_layout:
                 login();
                 break;
             case R.id.tv_register:
-                Intent intent2 = new Intent(this, RegisterActivity.class);
-                startActivity(intent2);
+                JumpActivityUtil.goToRegisterActivity(this);
                 break;
         }
 

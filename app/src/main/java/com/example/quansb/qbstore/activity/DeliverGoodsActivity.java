@@ -11,7 +11,7 @@ import com.example.quansb.qbstore.util.JumpActivityUtil;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class OrderActivity extends BaseActivity implements View.OnClickListener {
+public class DeliverGoodsActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.tv_back)
     TextView tvBack;
     @Bind(R.id.tv_common_centre)
@@ -25,20 +25,13 @@ public class OrderActivity extends BaseActivity implements View.OnClickListener 
     @Override
     protected void initView() {
         tvBack.setOnClickListener(this);
-        tvBack.setText(R.string.all_order);
+        tvBack.setText(R.string.deliver_goods);
         tvCommonCentre.setVisibility(View.GONE);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_order_layout;
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+        return R.layout.activity_deliver_goods_layout;
     }
 
     @Override
@@ -47,7 +40,13 @@ public class OrderActivity extends BaseActivity implements View.OnClickListener 
             case R.id.tv_back:
                 JumpActivityUtil.goToHomeActivity(this);
                 break;
-
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

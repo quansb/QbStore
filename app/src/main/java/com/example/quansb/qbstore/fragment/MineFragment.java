@@ -1,7 +1,6 @@
 package com.example.quansb.qbstore.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,8 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
-import com.example.quansb.qbstore.activity.LoginActivity;
-import com.example.quansb.qbstore.activity.SettingActivity;
 import com.example.quansb.qbstore.base.BaseFragment;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
 
@@ -23,7 +20,17 @@ import butterknife.ButterKnife;
 
 public class MineFragment extends BaseFragment implements View.OnClickListener {
 
-   private Context mContext;
+    @Bind(R.id.tv_pay)
+    TextView tvPay;
+    @Bind(R.id.tv_deliver_goods)
+    TextView tvDeliverGoods;
+    @Bind(R.id.tv_take_back_goods)
+    TextView tvTakeBackGoods;
+    @Bind(R.id.tv_evaluate)
+    TextView tvEvaluate;
+    @Bind(R.id.tv_after_sales)
+    TextView tvAfterSales;
+    private Context mContext;
     @Bind(R.id.ll_login)
     LinearLayout llLogin;
     @Bind(R.id.tv_login)
@@ -49,12 +56,17 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mContext=getActivity();
+        mContext = getActivity();
         tvLogin.setOnClickListener(this);
         llLogin.setOnClickListener(this);
         ivSetting.setOnClickListener(this);
         tvAllOrder.setOnClickListener(this);
         tvOrder.setOnClickListener(this);
+        tvPay.setOnClickListener(this);
+        tvDeliverGoods.setOnClickListener(this);
+        tvTakeBackGoods.setOnClickListener(this);
+        tvEvaluate.setOnClickListener(this);
+        tvAfterSales.setOnClickListener(this);
     }
 
     @Override
@@ -83,7 +95,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
 
             case R.id.iv_setting:
-               JumpActivityUtil.goToSettingActivity(mContext);// 跳转到设置界面
+                JumpActivityUtil.goToSettingActivity(mContext);// 跳转到设置界面
                 break;
 
             case R.id.tv_all_order:
@@ -92,8 +104,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.tv_order:
                 JumpActivityUtil.goToOrderActivity(mContext);// 跳转到全部订单界面
                 break;
-
-
+            case R.id.tv_pay:
+                JumpActivityUtil.goToPaymentActivity(mContext);
+                break;
+            case R.id.tv_deliver_goods:
+                JumpActivityUtil.goToDeliverGoodsActivity(mContext);
+                break;
+            case R.id.tv_take_back_goods:
+                JumpActivityUtil.goToTakeBackGoodsActivity(mContext);
+                break;
+            case R.id.tv_evaluate:
+                JumpActivityUtil.goToEvaluationActivity(mContext);
+                break;
+            case R.id.tv_after_sales:
+                JumpActivityUtil.goToAfterSalesActivity(mContext);
+                break;
         }
 
     }

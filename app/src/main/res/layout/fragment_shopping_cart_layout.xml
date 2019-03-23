@@ -47,9 +47,10 @@
         android:background="@color/color_cdcdcd"
         android:layout_below="@+id/tv_shopping_cart_name"
         />
-
-
-
     </LinearLayout>
+
+
+
+
 
 </RelativeLayout>
