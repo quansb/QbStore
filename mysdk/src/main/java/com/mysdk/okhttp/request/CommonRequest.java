@@ -23,9 +23,9 @@ import okio.Source;
  */
 
 public class CommonRequest {
-    private static String mUrl;
+    private static String mBaseUrl;
     public static void setCommonUrl(String url){
-        mUrl=url;
+        mBaseUrl=url;
     }
     public static Request createPostRequest(RequestParams params) {
         return createPostRequest( params, null);
@@ -47,7 +47,7 @@ public class CommonRequest {
         }
         FormBody mFormBody = mFormBodyBuild.build();
         Headers mHeader = mHeaderBuild.build();
-        Request request = new Request.Builder().url(mUrl).
+        Request request = new Request.Builder().url(mBaseUrl+params.PARAMS).
                 post(mFormBody).
                 headers(mHeader)
                 .build();
@@ -59,8 +59,9 @@ public class CommonRequest {
         return createGetRequest( params, null);
     }
 
+
     public static Request createGetRequest( RequestParams params, RequestParams headers) {
-        StringBuilder urlBuilder = new StringBuilder(mUrl).append("?");
+        StringBuilder urlBuilder = new StringBuilder(mBaseUrl+params.PARAMS).append("?");
         if (params != null) {
             for (Map.Entry<String, String> entry : params.urlParams.entrySet()) {
                 //Log.i("info1", "createGetRequest: "+entry.getKey());
@@ -85,7 +86,7 @@ public class CommonRequest {
      * @return
      */
     public static Request createMonitorRequest( RequestParams params) {
-        StringBuilder urlBuilder = new StringBuilder(mUrl).append("&");
+        StringBuilder urlBuilder = new StringBuilder(mBaseUrl).append("&");
         if (params != null && params.hasParams()) {
             for (Map.Entry<String, String> entry : params.urlParams.entrySet()) {
                 urlBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
@@ -118,7 +119,7 @@ public class CommonRequest {
                 }
             }
         }
-        return new Request.Builder().url(mUrl).post(bodyBuilder .build()).build();
+        return new Request.Builder().url(mBaseUrl).post(bodyBuilder .build()).build();
     }
 
     /**
@@ -139,7 +140,7 @@ public class CommonRequest {
             }
         }
         bodyBuilder.addFormDataPart("file", picName, createRequestBody(MediaType.parse("application/octet-stream"), byteData,null));
-        return new Request.Builder().url(mUrl).post(bodyBuilder .build()).build();
+        return new Request.Builder().url(mBaseUrl).post(bodyBuilder .build()).build();
     }
     public static  <T> RequestBody createRequestBody(final MediaType contentType, final byte[] data,final File file ) {
         return new RequestBody() {
