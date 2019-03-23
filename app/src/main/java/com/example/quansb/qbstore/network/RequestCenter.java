@@ -23,10 +23,11 @@ public class RequestCenter {
                 createGetRequest(requestParams), new DisposeDataHandle(listener, clazz));
     }
 
-    public static void toRegister(Context context,String f_id,String pwd, DisposeDataListener listener, Class<?> clazz){
+    public static void toRegister(Context context,String f_id,String pwd,String user_name, DisposeDataListener listener, Class<?> clazz){
         RequestParams requestParams=new RequestParams();
         requestParams.put("f_id",f_id);
         requestParams.put("pwd",pwd);
+        requestParams.put("pwd",user_name);
         CommonOkHttpClient.post(CommonRequest.
                 createGetRequest(requestParams), new DisposeDataHandle(listener, clazz));
     }
