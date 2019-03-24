@@ -55,6 +55,8 @@
         <activity android:name=".activity.PaymentActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".activity.PersonalInformationActivity" />
+        <activity android:name=".activity.AddressManagementActivity" />
+        <activity android:name=".activity.AboutActivity" />
 
     </application>
 

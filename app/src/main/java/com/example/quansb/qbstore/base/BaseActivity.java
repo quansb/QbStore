@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends AppCompatActivity{
-    public static final String TAG = "info";
+    public static final String TAG = "info1";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

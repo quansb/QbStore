@@ -28,6 +28,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private ShoppingCartFragment shoppingCartFragment;
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
+    private boolean loginStatus;
     @Bind(R.id.tv_home)
     TextView tvHome;
     @Bind(R.id.tv_shopping_cart)
@@ -40,15 +41,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         int id=getIntent().getIntExtra("id",0);
         if(id==1){
         FragmentTransaction transaction=fragmentManager.beginTransaction();
             transaction.show(mineFragment);
             transaction.commit();
         }
+    }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
 
     }
 

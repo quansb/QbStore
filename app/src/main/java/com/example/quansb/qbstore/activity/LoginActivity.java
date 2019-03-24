@@ -1,7 +1,7 @@
 package com.example.quansb.qbstore.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,9 +14,12 @@ import com.example.quansb.qbstore.entity.UserInfo;
 import com.example.quansb.qbstore.network.RequestCenter;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.Logger;
+import com.example.quansb.qbstore.util.PreferencesHelp;
 import com.mysdk.okhttp.listener.DisposeDataListener;
 import com.mysdk.util.StringUtils;
 import com.mysdk.view.CircleImageView;
+
+import java.net.URL;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,7 +38,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Bind(R.id.tv_register)
     TextView tvRegister;
     private UserInfo userInfo;
-
     @Override
     protected void initData() {
 
@@ -44,6 +46,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void updateUI() {
 
+        PreferencesHelp preferencesHelp=new PreferencesHelp(this);
+        Boolean bool=new Boolean(true);
+        preferencesHelp.put("isLogin",bool);
+        preferencesHelp.putString("avatar_img",userInfo.getAvatar_img());
+        preferencesHelp.putString("user_name",userInfo.getUser_name());
+        JumpActivityUtil.goToHomeActivity(LoginActivity.this);
     }
 
     @Override
@@ -99,7 +107,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onSuccess(Object object) {
                 userInfo = (UserInfo) object;
-                updateUI();
+                Log.i(TAG, userInfo.getUser_name()+"  "+userInfo.getAvatar_img()+"");
+                if(Integer.valueOf(userInfo.getStatus())>0){
+                    updateUI();
+                }else {
+                    Logger.showToastShort(userInfo.getMsg());
+                }
             }
 
             @Override

@@ -12,6 +12,7 @@
         android:orientation="horizontal">
 
         <com.mysdk.view.CircleImageView
+            android:id="@+id/civ_head"
             android:layout_width="@dimen/dimen_70dp"
             android:layout_height="@dimen/dimen_70dp"
             android:layout_marginBottom="@dimen/dimen_15dp"

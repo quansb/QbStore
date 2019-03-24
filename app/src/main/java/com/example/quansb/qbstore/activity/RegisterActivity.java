@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -14,6 +16,8 @@ import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.base.BaseActivity;
 import com.example.quansb.qbstore.entity.UserInfo;
 import com.example.quansb.qbstore.network.RequestCenter;
+import com.example.quansb.qbstore.util.CommonDialog;
+import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.Logger;
 import com.mysdk.glide.GlideUtil;
 import com.mysdk.okhttp.listener.DisposeDataListener;
@@ -55,7 +59,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         etAccount.setOnClickListener(this);
         etPassword.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
-        GlideUtil.loadImageCircle(this,"http://b-ssl.duitang.com/uploads/item/201812/05/20181205211932_xvslr.jpeg",circleImg,50);
     }
 
     @Override
@@ -81,22 +84,26 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                 break;
         }
     }
+    private void showMyDialog() {
+        final CommonDialog commonDialog=new CommonDialog();
+        commonDialog.ComDialog(RegisterActivity.this,getString(R.string.register_success),getString(R.string.confirm),getString(R.string.cancel));
+        commonDialog.setOnDialogClikeListener(new CommonDialog.OnDialogClikeListener() {
+            @Override
+            public void onConfirm() {
+                JumpActivityUtil.goToLoginActivity(RegisterActivity.this);
+            }
+            @Override
+            public void onCancel() {
+            }
+        });
+    }
 
 
     private void updateUI() {
-
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setMessage("注册成功");
-        dialog.setCancelable(false);
-        dialog.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-            }
-        });
-        dialog.show();
-
+        showMyDialog();
     }
+
+
 
     public void register() {
         String userName = etAccount.getText().toString().trim();
@@ -105,12 +112,15 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             Logger.showToastShort(getString(R.string.input_canno_null));
             return;
         }
-        RequestCenter.toRegister(this, userName, pwd, new DisposeDataListener() {
+        RequestCenter.toRegister(this, userName, "123", pwd, new DisposeDataListener() {
             @Override
             public void onSuccess(Object object) {
                 userInfo = (UserInfo) object;
-
-                updateUI();
+                if (Integer.valueOf(userInfo.getStatus()) > 0) {
+                    updateUI();
+                } else {
+                    Logger.showToastShort(userInfo.getMsg());
+                }
             }
 
             @Override

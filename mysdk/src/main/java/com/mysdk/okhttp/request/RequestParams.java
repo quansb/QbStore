@@ -13,6 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class RequestParams {
     public LinkedHashMap<String ,String> urlParams=new LinkedHashMap<>(); //保证顺序
     public ConcurrentHashMap<String, Object> fileParams= new ConcurrentHashMap<String, Object>();
+    public String PARAMS="";
 
    public RequestParams(){
        this((Map<String,String>) null);

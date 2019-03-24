@@ -9,11 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.base.BaseFragment;
+import com.example.quansb.qbstore.util.Help;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
+import com.example.quansb.qbstore.util.PreferencesHelp;
+import com.mysdk.glide.GlideUtil;
+import com.mysdk.view.CircleImageView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,7 +35,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     TextView tvEvaluate;
     @Bind(R.id.tv_after_sales)
     TextView tvAfterSales;
-    private Context mContext;
     @Bind(R.id.ll_login)
     LinearLayout llLogin;
     @Bind(R.id.tv_login)
@@ -42,12 +46,22 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Bind(R.id.tv_all_order)
     TextView tvAllOrder;
 
+    @Bind(R.id.rl_layout)
+    RelativeLayout rlLayout;
+    @Bind(R.id.ll_layout)
+    LinearLayout llLayout;
+    @Bind(R.id.fragment_mine)
+    RelativeLayout fragmentMine;
+    @Bind(R.id.civ_head)
+    CircleImageView civHead;
+
+    private Context mContext;
+    private Boolean loginStatus; //登录状态
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-
-
         View view = inflater.inflate(R.layout.fragment_mine_layout, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -57,6 +71,23 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mContext = getActivity();
+        initListener();
+    }
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+
+    }
+
+    private void initListener() {
         tvLogin.setOnClickListener(this);
         llLogin.setOnClickListener(this);
         ivSetting.setOnClickListener(this);
@@ -69,13 +100,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         tvAfterSales.setOnClickListener(this);
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-    }
-
 
     @Override
     public void onDestroyView() {
@@ -85,19 +109,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-
+        loginStatus = Help.isLogin(mContext);  //是否登录
+        if (!loginStatus) {
+            JumpActivityUtil.goToLoginActivity(mContext); // 跳转到登录界面
+            return;
+        }
         switch (v.getId()) {
-            case R.id.ll_login:
-                JumpActivityUtil.goToLoginActivity(mContext); // 跳转到登录界面
-                break;
-            case R.id.tv_login:
-                JumpActivityUtil.goToLoginActivity(mContext);// 跳转到登录界面
-                break;
-
+//                case R.id.ll_login:
+//                    JumpActivityUtil.goToLoginActivity(mContext); // 跳转到登录界面
+//                    break;
+//                case R.id.tv_login:
+//                    JumpActivityUtil.goToLoginActivity(mContext);// 跳转到登录界面
+//                    break;
             case R.id.iv_setting:
                 JumpActivityUtil.goToSettingActivity(mContext);// 跳转到设置界面
                 break;
-
             case R.id.tv_all_order:
                 JumpActivityUtil.goToOrderActivity(mContext);// 跳转到全部订单界面
                 break;
@@ -105,21 +131,35 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 JumpActivityUtil.goToOrderActivity(mContext);// 跳转到全部订单界面
                 break;
             case R.id.tv_pay:
-                JumpActivityUtil.goToPaymentActivity(mContext);
+                JumpActivityUtil.goToPaymentActivity(mContext);// 跳转到支付界面
                 break;
             case R.id.tv_deliver_goods:
-                JumpActivityUtil.goToDeliverGoodsActivity(mContext);
+                JumpActivityUtil.goToDeliverGoodsActivity(mContext);// 跳转到待发货界面
                 break;
             case R.id.tv_take_back_goods:
-                JumpActivityUtil.goToTakeBackGoodsActivity(mContext);
+                JumpActivityUtil.goToTakeBackGoodsActivity(mContext);// 跳转到待收货界面
                 break;
             case R.id.tv_evaluate:
-                JumpActivityUtil.goToEvaluationActivity(mContext);
+                JumpActivityUtil.goToEvaluationActivity(mContext);// 跳转到待评价界面
                 break;
             case R.id.tv_after_sales:
-                JumpActivityUtil.goToAfterSalesActivity(mContext);
+                JumpActivityUtil.goToAfterSalesActivity(mContext);// 跳转到售后界面
                 break;
         }
+    }
 
+    public void refresh(){
+        loginStatus = Help.isLogin(mContext);
+        if(!loginStatus){
+            tvLogin.setText(R.string.login);
+           civHead.setImageResource(R.drawable.ic_login);
+           return;
+        }
+        PreferencesHelp preferencesHelp = new PreferencesHelp(getContext());
+        String user_name = preferencesHelp.getString("user_name", "");
+        String avatar_img = preferencesHelp.getString("avatar_img", "");
+        GlideUtil.loadImageCircle(mContext, avatar_img,civHead,50);
+        tvLogin.setText(user_name);
+        loginStatus = Help.isLogin(mContext);
     }
 }

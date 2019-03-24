@@ -3,6 +3,8 @@ package com.example.quansb.qbstore.util;
 import android.content.Context;
 import android.content.Intent;
 
+import com.example.quansb.qbstore.activity.AboutActivity;
+import com.example.quansb.qbstore.activity.AddressManagementActivity;
 import com.example.quansb.qbstore.activity.AfterSalesActivity;
 import com.example.quansb.qbstore.activity.DeliverGoodsActivity;
 import com.example.quansb.qbstore.activity.EvaluationActivity;
@@ -70,4 +72,15 @@ public class JumpActivityUtil {
         Intent intent=new Intent(context, PersonalInformationActivity.class);       // 跳转到待收货界面
         context.startActivity(intent);
     }
+
+
+    public static void goToAddressManagementActivity(Context context){
+        Intent intent=new Intent(context, AddressManagementActivity.class);       // 跳转到地址管理界面
+        context.startActivity(intent);
+    }
+    public static void goToAboutActivity(Context context){
+        Intent intent=new Intent(context, AboutActivity.class);       // 跳转到关于界面
+        context.startActivity(intent);
+    }
+
 }
