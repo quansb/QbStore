@@ -35,4 +35,19 @@
     <string name="cancel">取消</string>
     <string name="register_success">注册成功</string>
     <string name="change_sex">修改性别</string>
+    <string name="canno_change_user_id">用户名不可以修改呦！</string>
+    <string name="change">确认修改</string>
+    <string name="user_name_canno_null">用户名不能为空</string>
+    <string name="modify_successfully">修改成功</string>
+    <string name="change_age">修改年龄</string>
+    <string name="modify_the_head_picture">修改头像</string>
+    <string name="content_restriction">4–10个字符，可由中文、英文、数字组成</string>
+    <string name="change_nickname">修改昵称</string>
+    <string name="please_enter_nickname">请输入昵称</string>
+    <string name="sure">确定</string>
+    <string name="Age_range">年龄范围 1~~150</string>
+    <string name="input_age">请输入年龄</string>
+    <string name="you_denied_permission">你拒绝了访问相册的权限</string>
+    <string name="failed_to_get_image">获取图片失败</string>
+    <string name="fail_net">修改失败，请确认是否连接网络</string>
 </resources>

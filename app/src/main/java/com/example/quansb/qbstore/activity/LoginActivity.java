@@ -38,6 +38,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     @Bind(R.id.tv_register)
     TextView tvRegister;
     private UserInfo userInfo;
+
     @Override
     protected void initData() {
 
@@ -46,11 +47,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private void updateUI() {
 
-        PreferencesHelp preferencesHelp=new PreferencesHelp(this);
-        Boolean bool=new Boolean(true);
-        preferencesHelp.put("isLogin",bool);
-        preferencesHelp.putString("avatar_img",userInfo.getAvatar_img());
-        preferencesHelp.putString("user_name",userInfo.getUser_name());
+        PreferencesHelp preferencesHelp = new PreferencesHelp(this);
+        Boolean bool = new Boolean(true);
+        preferencesHelp.put("isLogin", bool);
+        preferencesHelp.putObject("userinfo",userInfo);
         JumpActivityUtil.goToHomeActivity(LoginActivity.this);
     }
 
@@ -77,6 +77,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         ButterKnife.bind(this);
 
 
+
+
     }
 
     @Override
@@ -84,7 +86,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         switch (v.getId()) {
             case R.id.iv_back:
-                JumpActivityUtil.goToHomeActivity(this);
+                finish();
                 break;
             case R.id.ll_login_bt_layout:
                 login();
@@ -107,10 +109,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onSuccess(Object object) {
                 userInfo = (UserInfo) object;
-                Log.i(TAG, userInfo.getUser_name()+"  "+userInfo.getAvatar_img()+"");
-                if(Integer.valueOf(userInfo.getStatus())>0){
+
+                if (Integer.valueOf(userInfo.getStatus()) > 0) {
                     updateUI();
-                }else {
+                } else {
                     Logger.showToastShort(userInfo.getMsg());
                 }
             }
@@ -121,13 +123,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             }
         }, UserInfo.class);
     }
-
-
-
-
-
-
-
 
 
 }

@@ -6,16 +6,17 @@ import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.base.BaseActivity;
-import com.example.quansb.qbstore.util.JumpActivityUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class EvaluationActivity extends BaseActivity implements View.OnClickListener {
+public class ModifyHeadPictureActivity extends BaseActivity implements View.OnClickListener {
     @Bind(R.id.tv_back)
     TextView tvBack;
     @Bind(R.id.tv_common_centre)
     TextView tvCommonCentre;
+    @Bind(R.id.tv_common_right)
+    TextView tvCommonRight;
 
     @Override
     protected void initData() {
@@ -25,22 +26,14 @@ public class EvaluationActivity extends BaseActivity implements View.OnClickList
     @Override
     protected void initView() {
         tvBack.setOnClickListener(this);
-        tvBack.setText(R.string.evaluation);
+        tvBack.setText(R.string.modify_the_head_picture);
         tvCommonCentre.setVisibility(View.GONE);
+        tvCommonRight.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_evaluation_layout;
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_back:
-                finish();
-                break;
-        }
+        return R.layout.activity_modify_head_picture_layout;
     }
 
     @Override
@@ -48,5 +41,14 @@ public class EvaluationActivity extends BaseActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_back:
+                finish();
+                break;
+        }
     }
 }

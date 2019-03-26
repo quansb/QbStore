@@ -3,6 +3,8 @@ package com.example.quansb.qbstore.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 public class PreferencesHelp {
 
     private Context mContext;
@@ -158,6 +160,38 @@ public class PreferencesHelp {
      */
     public void setApply(boolean apply) {
         isApply = apply;
+    }
+    /**
+     * 存放对象
+     * @param key
+     * @param object
+     */
+    public void putObject(String key,Object object){
+        if (sp == null) {
+            sp = mContext.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        }
+        Gson gson=new Gson();
+        putString(key,gson.toJson(object));
+
+    }
+
+    /**
+     * 获取对象
+     * @param key
+     * @param clazz
+     * @return
+     */
+    public Object getObject(String key,Class clazz){
+        if (sp == null) {
+            sp = mContext.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        }
+        Gson gson=new Gson();
+        String result=getString(key,"");
+        if (!result.equals("")){
+            return    gson.fromJson(result,clazz) ;
+        }else {
+            return null;
+        }
     }
 
 }

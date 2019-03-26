@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/color_white"
     >
 <RelativeLayout
     android:id="@+id/rl_layout"
@@ -31,9 +32,9 @@
         android:gravity="center_horizontal"
         >
         <com.mysdk.view.CircleImageView
-            android:layout_width="@dimen/dimen_70dp"
-            android:layout_height="@dimen/dimen_70dp"
-            android:src="@drawable/ic_login_heart2"
+            android:layout_width="@dimen/dimen_85dp"
+            android:layout_height="@dimen/dimen_85dp"
+            android:src="@drawable/ic_login"
             android:id="@+id/circle_img"
             />
 <LinearLayout
@@ -54,7 +55,7 @@
             android:maxLength="10"
             android:focusable="true"
             android:focusableInTouchMode="true"
-
+            android:theme="@style/MyEditText"
             />
         <EditText
             android:id="@+id/et_password"
@@ -62,6 +63,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:theme="@style/MyEditText"
             />
 </LinearLayout>
 

@@ -38,7 +38,7 @@ public class DeliverGoodsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
-                JumpActivityUtil.goToHomeActivity(this);
+                finish();
                 break;
         }
     }

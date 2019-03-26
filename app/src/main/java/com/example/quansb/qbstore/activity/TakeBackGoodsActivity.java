@@ -39,7 +39,7 @@ public class TakeBackGoodsActivity extends BaseActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
-                JumpActivityUtil.goToHomeActivity(this);
+                finish();
                 break;
         }
     }

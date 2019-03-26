@@ -39,7 +39,7 @@ public class AddressManagementActivity extends BaseActivity implements View.OnCl
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_back:
-                JumpActivityUtil.goToSettingActivity(this);
+                finish();
                 break;
         }
     }

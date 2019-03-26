@@ -1,25 +1,18 @@
 package com.example.quansb.qbstore.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.base.BaseActivity;
 import com.example.quansb.qbstore.entity.UserInfo;
 import com.example.quansb.qbstore.network.RequestCenter;
-import com.example.quansb.qbstore.util.CommonDialog;
+import com.example.quansb.qbstore.view.CommonDialog;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.Logger;
-import com.mysdk.glide.GlideUtil;
 import com.mysdk.okhttp.listener.DisposeDataListener;
 import com.mysdk.util.StringUtils;
 import com.mysdk.view.CircleImageView;
@@ -29,7 +22,6 @@ import butterknife.ButterKnife;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
     private UserInfo userInfo;
-    private Intent intent;
     @Bind(R.id.circle_img)
     CircleImageView circleImg;
     @Bind(R.id.iv_back)
@@ -49,7 +41,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         tvRegister.setVisibility(tvRegister.GONE);
         tvLoginRegister.setText(R.string.register);
-        intent = new Intent(this, LoginActivity.class);
     }
 
     @Override
@@ -77,7 +68,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_back:
-                startActivity(intent);
+                finish();
                 break;
             case R.id.tv_login_register:
                 register();
@@ -87,7 +78,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private void showMyDialog() {
         final CommonDialog commonDialog=new CommonDialog();
         commonDialog.ComDialog(RegisterActivity.this,getString(R.string.register_success),getString(R.string.confirm),getString(R.string.cancel));
-        commonDialog.setOnDialogClikeListener(new CommonDialog.OnDialogClikeListener() {
+        commonDialog.setOnDialogClikeListener(new CommonDialog.OnDialogClickListener() {
             @Override
             public void onConfirm() {
                 JumpActivityUtil.goToLoginActivity(RegisterActivity.this);

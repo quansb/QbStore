@@ -52,7 +52,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_back:
-                JumpActivityUtil.goToSettingActivity(this);
+                finish();
                 break;
         }
     }

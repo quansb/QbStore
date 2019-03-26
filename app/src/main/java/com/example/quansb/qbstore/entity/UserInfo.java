@@ -10,6 +10,24 @@ public class UserInfo implements Serializable{
     private String user_name;
     private String age;
     private String avatar_img;
+    private String sex;
+    private String money;
+
+    public String getMoney() {
+        return money;
+    }
+
+    public void setMoney(String money) {
+        this.money = money;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public String getUser_id() {
         return user_id;

@@ -1,9 +1,6 @@
 package com.example.quansb.qbstore.activity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -11,7 +8,7 @@ import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.base.BaseActivity;
 import com.example.quansb.qbstore.entity.UserInfo;
 import com.example.quansb.qbstore.network.RequestCenter;
-import com.example.quansb.qbstore.util.CommonDialog;
+import com.example.quansb.qbstore.view.CommonDialog;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.Logger;
 import com.example.quansb.qbstore.util.PreferencesHelp;
@@ -66,7 +63,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
-                JumpActivityUtil.goToHomeActivity(this);
+               finish();
                 break;
 
             case R.id.tv_personal_information:
@@ -90,7 +87,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     private void showMyDialog() {
         final CommonDialog commonDialog=new CommonDialog();
         commonDialog.ComDialog(SettingActivity.this,getString(R.string.loginout),getString(R.string.confirm),getString(R.string.cancel));
-        commonDialog.setOnDialogClikeListener(new CommonDialog.OnDialogClikeListener() {
+        commonDialog.setOnDialogClikeListener(new CommonDialog.OnDialogClickListener() {
             @Override
             public void onConfirm() {
                 loginOut();
@@ -109,7 +106,6 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             @Override
             public void onSuccess(Object object) {
                 UserInfo userInfo = (UserInfo) object;
-                Log.i(TAG, userInfo.getUser_name() + "  " + userInfo.getAvatar_img() + "");
                 if (Integer.valueOf(userInfo.getStatus()) > 0) {
                     PreferencesHelp preferencesHelp = new PreferencesHelp(SettingActivity.this);
                     Boolean bool = new Boolean(false);
@@ -126,8 +122,12 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         }, UserInfo.class);
     }
 
+
+
+
     private void updateUI() {
-                JumpActivityUtil.goToLoginActivity(SettingActivity.this);
+        JumpActivityUtil.goToLoginActivity(SettingActivity.this);
+        finish();
     }
 
 }

@@ -3,6 +3,10 @@
     package="com.example.quansb.qbstore">
     <uses-permission android:name="android.permission.INTERNET">
     </uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
     <application
        android:name=".BaseApplication"
         android:allowBackup="true"
@@ -11,6 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.quansb.qbstore.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
 
         <activity
             android:name=".activity.HomeActivity"
@@ -57,6 +70,9 @@
         <activity android:name=".activity.PersonalInformationActivity" />
         <activity android:name=".activity.AddressManagementActivity" />
         <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.NicknameActivity" />
+        <activity android:name=".activity.AgeChangeActivity" />
+        <activity android:name=".activity.ModifyHeadPictureActivity" />
 
     </application>
 

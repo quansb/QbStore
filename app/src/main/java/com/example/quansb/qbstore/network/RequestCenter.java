@@ -43,6 +43,12 @@ public class RequestCenter {
                 createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
     }
 
+    /**
+     * 退出登录
+     * @param f_id
+     * @param listener
+     * @param clazz
+     */
     public static void toLoginOut(String f_id, DisposeDataListener listener, Class<?> clazz){
         RequestParams requestParams=new RequestParams();
         requestParams.put("user_id",f_id);
@@ -51,7 +57,20 @@ public class RequestCenter {
                 createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
     }
 
-
-
-
+    /**
+     * 修改个人信息
+     * @param f_id
+     * @param listener
+     * @param clazz
+     */
+    public  static void toChangePersonalInformation(String f_id,String user_name,String age,String sex, DisposeDataListener listener, Class<?> clazz){
+        RequestParams requestParams=new RequestParams();
+        requestParams.put("user_id",f_id);
+        requestParams.put("user_name",user_name);
+        requestParams.put("age",age);
+        requestParams.put("sex",sex);
+        requestParams.PARAMS="updateUserInfo";
+        CommonOkHttpClient.post(CommonRequest.
+                createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
+    }
 }

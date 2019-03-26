@@ -5,6 +5,7 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.mysdk.logger.LoggerUtil;
 import com.mysdk.okhttp.exception.OkHttpException;
 import com.mysdk.okhttp.listener.DisposeDataHandle;
 import com.mysdk.okhttp.listener.DisposeDataListener;
@@ -102,7 +103,7 @@ public class CommonJsonCallback implements Callback {
     }
 
     private void handleResponse(Object responseObj) {
-
+        LoggerUtil.logInfo(responseObj.toString());  //打印返回结果日志 方便查看
         if (responseObj == null || responseObj.toString().trim().equals("")) {
             mListener.onFailure(new OkHttpException(NETWORK_ERROR, EMPTY_MSG));
             Log.i("info1", "handleResponse:0 ");

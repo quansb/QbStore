@@ -1,4 +1,4 @@
-package com.example.quansb.qbstore.util;
+package com.example.quansb.qbstore.view;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -7,14 +7,14 @@ import android.content.DialogInterface;
 
 public class CommonDialog {
     AlertDialog.Builder dialog;
-    private OnDialogClikeListener listener;
+    private OnDialogClickListener listener;
 
-    public void setOnDialogClikeListener(OnDialogClikeListener listener) {
+    public void setOnDialogClikeListener(OnDialogClickListener listener) {
         this.listener = listener;
     }
 
 
-    public interface OnDialogClikeListener {
+    public interface OnDialogClickListener {
         void onConfirm();
         void onCancel();
     }

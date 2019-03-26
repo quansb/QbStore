@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.base.BaseFragment;
+import com.example.quansb.qbstore.entity.UserInfo;
 import com.example.quansb.qbstore.util.Help;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.PreferencesHelp;
@@ -148,18 +149,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    public void refresh(){
+    public void refresh() {
         loginStatus = Help.isLogin(mContext);
-        if(!loginStatus){
+        if (!loginStatus) {
             tvLogin.setText(R.string.login);
-           civHead.setImageResource(R.drawable.ic_login);
-           return;
+            civHead.setImageResource(R.drawable.ic_login);
+            return;
         }
         PreferencesHelp preferencesHelp = new PreferencesHelp(getContext());
-        String user_name = preferencesHelp.getString("user_name", "");
-        String avatar_img = preferencesHelp.getString("avatar_img", "");
-        GlideUtil.loadImageCircle(mContext, avatar_img,civHead,50);
-        tvLogin.setText(user_name);
-        loginStatus = Help.isLogin(mContext);
+        UserInfo userInfo = (UserInfo) preferencesHelp.getObject("userinfo", UserInfo.class);
+        GlideUtil.loadImageCircle(mContext, userInfo.getAvatar_img(), civHead, 50);
+        tvLogin.setText(userInfo.getUser_name());
     }
 }

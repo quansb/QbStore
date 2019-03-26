@@ -38,7 +38,7 @@ public class PaymentActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_back:
-                JumpActivityUtil.goToHomeActivity(this);
+                finish();
                 break;
         }
     }

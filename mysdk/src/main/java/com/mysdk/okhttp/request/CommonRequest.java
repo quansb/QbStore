@@ -2,6 +2,8 @@ package com.mysdk.okhttp.request;
 
 import android.util.Log;
 
+import com.mysdk.logger.LoggerUtil;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -32,9 +34,11 @@ public class CommonRequest {
     }
 
     public static Request createPostRequest( RequestParams params, RequestParams headers) {
+        String log=mBaseUrl+params.PARAMS+"?";
         FormBody.Builder mFormBodyBuild = new FormBody.Builder();
         if (params != null) {
             for (Map.Entry<String, String> entry : params.urlParams.entrySet()) {
+                log+=entry.getKey()+"="+entry.getValue()+"&";
                 mFormBodyBuild.add(entry.getKey(), entry.getValue());
             }
         }
@@ -45,6 +49,8 @@ public class CommonRequest {
                 mHeaderBuild.add(entry.getKey(), entry.getValue());
             }
         }
+        LoggerUtil.logInfo(log.substring(0,log.length()-1));//打印请求参数日志 方便查看
+
         FormBody mFormBody = mFormBodyBuild.build();
         Headers mHeader = mHeaderBuild.build();
         Request request = new Request.Builder().url(mBaseUrl+params.PARAMS).
@@ -78,7 +84,8 @@ public class CommonRequest {
         Headers mHeader = mHeaderBuild.build();
         Request request = new Request.Builder().url(urlBuilder.substring(0, urlBuilder.length() - 1))
                 .get().headers(mHeader).build();
-      Log.i("info1", "createGetRequest: "+urlBuilder.substring(0, urlBuilder.length() - 1).toString());
+        LoggerUtil.logInfo(urlBuilder.substring(0, urlBuilder.length() - 1).toString());//打印请求参数日志 方便查看
+
         return request;
     }
     /**

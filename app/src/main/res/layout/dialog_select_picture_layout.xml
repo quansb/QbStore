@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:background="@drawable/bg_activity_setting_bg"
+   >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_activity_setting_item"
+        >
+        <TextView
+            android:id="@+id/tv_camera"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="拍照上传"
+            android:gravity="center"
+            android:paddingTop="@dimen/dimen_15dp"
+            android:paddingBottom="@dimen/dimen_15dp"
+            android:textSize="@dimen/dimen_14sp"
+            android:textColor="@color/color_000000"
+            />
+        <View
+            android:id="@+id/v_common_line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1dp"
+            android:background="@color/color_8a8a8a"
+            />
+
+        <TextView
+            android:id="@+id/tv_local"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="本地上传"
+            android:gravity="center"
+            android:textColor="@color/color_000000"
+            android:paddingTop="@dimen/dimen_15dp"
+            android:paddingBottom="@dimen/dimen_15dp"
+            android:textSize="@dimen/dimen_14sp"
+            />
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/cancel"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:background="@drawable/bg_activity_setting_item"
+        android:paddingTop="@dimen/dimen_15dp"
+        android:textColor="@color/color_8a8a8a"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dimen_15dp"
+        android:textSize="@dimen/dimen_14sp"
+        />
+
+
+
+</LinearLayout>
