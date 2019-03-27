@@ -19,8 +19,6 @@ android {
         }
     }
 
-
-
 }
 
 
@@ -33,4 +31,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compile 'com.jakewharton:butterknife:7.0.1'
     compile project(path: ':mysdk')
+    compile 'com.aliyun.dpa:oss-android-sdk:+'
 }

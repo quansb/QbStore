@@ -1,6 +1,7 @@
 package com.example.quansb.qbstore.network;
 
 import android.content.Context;
+import android.net.Uri;
 
 import com.mysdk.okhttp.CommonOkHttpClient;
 import com.mysdk.okhttp.listener.DisposeDataHandle;
@@ -73,4 +74,24 @@ public class RequestCenter {
         CommonOkHttpClient.post(CommonRequest.
                 createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
     }
+
+    /**
+     * 发送修改头像网络请求
+     * @param f_id
+     * @param url
+     * @param listener
+     * @param clazz
+     */
+    public static void toUpdateAvatar(String f_id, String url, DisposeDataListener listener, Class<?> clazz){
+        RequestParams requestParams=new RequestParams();
+        requestParams.put("user_id",f_id);
+        requestParams.put("avatar",url);
+        requestParams.PARAMS="updateAvatar";
+        CommonOkHttpClient.post(CommonRequest.
+                createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
+    }
+
+
+
+
 }

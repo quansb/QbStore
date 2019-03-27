@@ -112,6 +112,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 if (Integer.valueOf(userInfo.getStatus()) > 0) {
                     updateUI();
+
                 } else {
                     Logger.showToastShort(userInfo.getMsg());
                 }

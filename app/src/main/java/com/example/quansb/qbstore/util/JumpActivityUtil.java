@@ -96,7 +96,7 @@ public class JumpActivityUtil {
     public static void goToNicknameActivity(Activity activity,String nickname){
         Intent intent=new Intent(activity,NicknameActivity.class);   // 跳转到修改昵称界面
         intent.putExtra("nick_name",nickname);
-       activity.startActivityForResult(intent, INFO_REQUEST_CODE);
+        activity.startActivityForResult(intent, INFO_REQUEST_CODE);
     }
 
     public static void goToAgeChangeActivity(Activity activity,String age){

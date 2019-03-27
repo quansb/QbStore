@@ -19,6 +19,7 @@ import com.example.quansb.qbstore.util.Help;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.PreferencesHelp;
 import com.mysdk.glide.GlideUtil;
+import com.mysdk.logger.LoggerUtil;
 import com.mysdk.view.CircleImageView;
 
 import butterknife.Bind;
@@ -88,6 +89,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+    public void refresh() {
+        loginStatus = Help.isLogin(mContext);
+        if (!loginStatus) {
+            tvLogin.setText(R.string.login);
+            civHead.setImageResource(R.drawable.ic_login);
+            return;
+        }
+        PreferencesHelp preferencesHelp = new PreferencesHelp(getContext());
+        UserInfo userInfo = (UserInfo) preferencesHelp.getObject("userinfo", UserInfo.class);
+        GlideUtil.loadImageView(mContext,userInfo.getAvatar_img(),civHead);
+        LoggerUtil.logInfo( userInfo.getAvatar_img());
+        tvLogin.setText(userInfo.getUser_name());
+    }
+
+
     private void initListener() {
         tvLogin.setOnClickListener(this);
         llLogin.setOnClickListener(this);
@@ -99,6 +115,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         tvTakeBackGoods.setOnClickListener(this);
         tvEvaluate.setOnClickListener(this);
         tvAfterSales.setOnClickListener(this);
+        civHead.setOnClickListener(this);
     }
 
 
@@ -116,12 +133,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             return;
         }
         switch (v.getId()) {
-//                case R.id.ll_login:
-//                    JumpActivityUtil.goToLoginActivity(mContext); // 跳转到登录界面
-//                    break;
-//                case R.id.tv_login:
-//                    JumpActivityUtil.goToLoginActivity(mContext);// 跳转到登录界面
-//                    break;
+            case R.id.civ_head:
+                JumpActivityUtil.goToPersonalInformationActivity(mContext);   //跳转到个人信息界面
+                break;
+
+            case R.id.tv_login:
+                JumpActivityUtil.goToPersonalInformationActivity(mContext);   //跳转到个人信息界面
+                break;
             case R.id.iv_setting:
                 JumpActivityUtil.goToSettingActivity(mContext);// 跳转到设置界面
                 break;
@@ -149,16 +167,5 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
-    public void refresh() {
-        loginStatus = Help.isLogin(mContext);
-        if (!loginStatus) {
-            tvLogin.setText(R.string.login);
-            civHead.setImageResource(R.drawable.ic_login);
-            return;
-        }
-        PreferencesHelp preferencesHelp = new PreferencesHelp(getContext());
-        UserInfo userInfo = (UserInfo) preferencesHelp.getObject("userinfo", UserInfo.class);
-        GlideUtil.loadImageCircle(mContext, userInfo.getAvatar_img(), civHead, 50);
-        tvLogin.setText(userInfo.getUser_name());
-    }
+
 }
