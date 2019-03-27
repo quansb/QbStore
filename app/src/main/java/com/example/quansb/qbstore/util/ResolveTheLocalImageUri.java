@@ -18,8 +18,12 @@ import com.example.quansb.qbstore.R;
 public class ResolveTheLocalImageUri {
 
 
-
-
+    /**
+     *          解析   安卓4.4版本后本地相册返回 被封装过的uri
+     * @param data
+     * @param context
+     * @return
+     */
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static String handleImageOnKitKat(Intent data, Context context) {
         String imagePath = null;
@@ -47,10 +51,27 @@ public class ResolveTheLocalImageUri {
         return imagePath;
     }
 
+    /**
+     *               安卓4.4版本之前本地相册返回 真实的uri，直接可以使用
+     * @param data
+     * @param context
+     */
+    public static String handleImageBeforeKitKat(Intent data,Context context) {
+        Uri uri = data.getData();
+        String imagePath = getImagePath(uri, null, context);
+        return imagePath;
+    }
 
+    /**
+     *   //通过Uri和selection 来获取真实的图片路径
+     * @param uri
+     * @param selection
+     * @param context
+     * @return
+     */
     public static String getImagePath(Uri uri, String selection, Context context) {
         String path = null;
-        //通过Uri和selection 来获取真实的图片路径
+
         Cursor cursor = context.getContentResolver().query(uri, null, selection, null, null);
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -60,6 +81,4 @@ public class ResolveTheLocalImageUri {
         }
         return path;
     }
-
-
 }

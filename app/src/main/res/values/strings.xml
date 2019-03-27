@@ -47,7 +47,7 @@
     <string name="sure">确定</string>
     <string name="Age_range">年龄范围 1~~150</string>
     <string name="input_age">请输入年龄</string>
-    <string name="you_denied_permission">你拒绝了访问相册的权限</string>
+    <string name="you_denied_permission">你拒绝了权限</string>
     <string name="failed_to_get_image">获取图片失败</string>
     <string name="fail_net">修改失败，请确认是否连接网络</string>
 </resources>

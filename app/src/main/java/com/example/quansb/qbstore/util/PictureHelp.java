@@ -26,7 +26,7 @@ import java.io.PipedReader;
 public class PictureHelp {
    private  Uri mCutUri; //剪切后的URI
    private Activity mActivity;
-   private String mAuthority;
+   public String mAuthority;
    private String mCutImgPath;
   public PictureHelp(Activity activity){
       mActivity=activity;
@@ -55,6 +55,14 @@ public class PictureHelp {
      * @param OutFile 拍照得到的图片
      */
     public  void openCamera(File OutFile,int requestCode){
+
+    if(mAuthority==null){
+        try{
+            throw new Exception(" mAuthority必须与Manifest  <provider 标签  android:authorities属性值一样   ");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
         try {
             if (OutFile.exists()){

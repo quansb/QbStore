@@ -90,6 +90,7 @@ public class NicknameActivity extends BaseActivity implements View.OnClickListen
                     Toast.makeText(this,"请输入4个或4个字符以上的用户名",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                //返回 信息 设置结果码
                setResult(Constant.NICK_NAME_RESULT_CODE,new Intent().putExtra("nick_name",nickName));
                 finish();
                 break;

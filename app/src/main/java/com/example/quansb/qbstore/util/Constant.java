@@ -8,4 +8,7 @@ public class Constant {
   public  static final  int OPEN_CHOOSE_PHOTO_CODE =2;//打开本地相册请求码
   public  static final  int  PHOTO_CAMERA_CODE=3;//打开相机请求码
   public  static final  int CROP_REQUEST_CODE=4;//剪切图片请求码
+  public  static final  int PERMISSION_CODE=4;//打开本地内存读写请求码
+    public  static final  int PERMISSION_CAMERA_CODE=0x11;//打开本地相机权限请求码
+    public  static final  int PERMISSION_AlBUM_CODE=0x12;//打开本地相册权限读写请求码
 }

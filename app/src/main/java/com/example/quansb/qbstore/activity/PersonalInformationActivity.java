@@ -34,6 +34,7 @@ import com.example.quansb.qbstore.base.BaseActivity;
 import com.example.quansb.qbstore.entity.UserInfo;
 
 import com.example.quansb.qbstore.network.RequestCenter;
+import com.example.quansb.qbstore.util.AlbumAndCamera;
 import com.example.quansb.qbstore.util.Constant;
 import com.example.quansb.qbstore.util.Help;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
@@ -60,6 +61,9 @@ import static com.example.quansb.qbstore.util.Constant.CROP_REQUEST_CODE;
 import static com.example.quansb.qbstore.util.Constant.OPEN_CHOOSE_PHOTO_CODE;
 import static com.example.quansb.qbstore.util.Constant.INFO_REQUEST_CODE;
 import static com.example.quansb.qbstore.util.Constant.NICK_NAME_RESULT_CODE;
+import static com.example.quansb.qbstore.util.Constant.PERMISSION_AlBUM_CODE;
+import static com.example.quansb.qbstore.util.Constant.PERMISSION_CAMERA_CODE;
+import static com.example.quansb.qbstore.util.Constant.PERMISSION_CODE;
 import static com.example.quansb.qbstore.util.Constant.PHOTO_CAMERA_CODE;
 import static com.example.quansb.qbstore.util.Constant.USER_INFO;
 import static com.example.quansb.qbstore.util.ResolveTheLocalImageUri.getImagePath;
@@ -104,9 +108,15 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
     private Uri imageUri;
     private  PictureHelp pictureHel;
     private  String cameraPhotoPath;
+    private String authority;
+
+    private    AlbumAndCamera albumAndCamera;
+
 
     @Override
     protected void initData() {
+
+        authority="com.example.quansb.qbstore.fileprovider";
         context = this;
         refresh();
     }
@@ -146,6 +156,9 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
         super.onResume();
     }
 
+    /**
+     *  判断 是否登录，如果是登录了 就在本地中获取对象，通过对象更新个人信息
+     */
     public void refresh() {
         loginStatus = Help.isLogin(PersonalInformationActivity.this);
         if (!loginStatus) {
@@ -200,24 +213,12 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
         dialog.setOnSelectDialogClikeListener(new SelectDialog.onSelectDialogClickListener() {
             @Override
             public void onLocal() {
-
-
                     openAlbum();
                     dialog.dismiss();
-
             }
-
             @Override
             public void onCamera() {
-                if (ContextCompat.checkSelfPermission(context, Manifest.permission.
-                        WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {   //权限还没有授予，需要在这里写申请权限的代码
-                    ActivityCompat.requestPermissions(PersonalInformationActivity.this,      // 第二个参数是一个字符串数组，里面是你需要申请的权限 可以设置申请多个权限
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1); // 最后一个参数是标志你这次申请的权限，该常量在onRequestPermissionsResult中使用到
-                }
-                else { //权限已经被授予
-
-                        openCamera();
-                }
+                    openCamera();
                     dialog.dismiss();
             }
 
@@ -234,39 +235,16 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
      * 打开本地相册
      */
     private void openAlbum() {
-
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.
-                WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {   //权限还没有授予，需要在这里写申请权限的代码
-            ActivityCompat.requestPermissions(PersonalInformationActivity.this,      // 第二个参数是一个字符串数组，里面是你需要申请的权限 可以设置申请多个权限
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1); // 最后一个参数是标志你这次申请的权限，该常量在onRequestPermissionsResult中使用到
-        }
-        else {  //权限已经被授予
-            Intent intent = new Intent("android.intent.action.GET_CONTENT");
-            intent.setType("image/*");
-            startActivityForResult(intent, OPEN_CHOOSE_PHOTO_CODE);
-        }
+        albumAndCamera=new AlbumAndCamera(PersonalInformationActivity.this);
+        albumAndCamera.openAlbum(context,Constant.OPEN_CHOOSE_PHOTO_CODE,Constant.PERMISSION_AlBUM_CODE);
     }
-
+    /**
+     * 打开相机
+     */
     private void openCamera() {
-       cameraPhotoPath=getExternalCacheDir()+"/output_image.jpg";
-        File outputImage=new File(getExternalCacheDir(),"output_image.jpg");
-        try {
-            if(outputImage.exists()){
-                outputImage.delete();
-            }
-            outputImage.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            imageUri=FileProvider.getUriForFile(this,"com.example.quansb.qbstore.fileprovider",outputImage);
-        }else {
-            imageUri=Uri.fromFile(outputImage);
-        }
-        //启动相机
-        Intent intent=new Intent("android.media.action.IMAGE_CAPTURE");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
-        startActivityForResult(intent,PHOTO_CAMERA_CODE);
+        AlbumAndCamera camera=new AlbumAndCamera(PersonalInformationActivity.this);
+        camera.openCamera(context,Constant.PHOTO_CAMERA_CODE,Constant.PERMISSION_CAMERA_CODE,authority);
+        cameraPhotoPath =  camera.getCameraPhotoPath();
     }
 
     /**
@@ -279,19 +257,30 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
-            case 1:
+            case PERMISSION_AlBUM_CODE:
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openAlbum();
                 } else {
                     Toast.makeText(context, R.string.you_denied_permission, Toast.LENGTH_SHORT).show();
                 }
-
                 break;
+            case PERMISSION_CAMERA_CODE:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openCamera();
+                } else {
+                    Toast.makeText(context, R.string.you_denied_permission, Toast.LENGTH_SHORT).show();
+                }
+                break;
+
             default:
         }
+
     }
 
-    private void ChangePersonalInformation()                //修改个人信息 发送到服务器更新个人信息
+    /**
+     *  //修改个人信息 发送到服务器更新个人信息
+     */
+    private void ChangePersonalInformation()
     {
         String userName = tvUserName.getText().toString().trim();
         String age = tvAge.getText().toString().trim();
@@ -316,11 +305,17 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
         }, UserInfo.class);
     }
 
-    private void updateUI() {           //把修改信息以对象的形式 保存到本地
+    /**
+     *   //把修改信息以对象的形式 保存到本地
+     */
+    private void updateUI() {
         PreferencesHelp preferencesHelp = new PreferencesHelp(this);
         preferencesHelp.putObject(USER_INFO, userInfo);
     }
 
+    /**
+     * 显示出选择性别dialog弹窗
+     */
     private void showSingDialog() {
         final String[] items = {"男", "女", "保密"};
         AlertDialog.Builder Dialog = new AlertDialog.Builder(PersonalInformationActivity.this);
@@ -363,6 +358,14 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
         Dialog.show();
     }
 
+
+    /**
+     *         使用 startActivityForResult(intent, 请求码)去 跳转另一个activity
+     *                 回调得到数据
+     * @param requestCode  请求码
+     * @param resultCode   结果码
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         switch (requestCode) {
@@ -390,35 +393,32 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
                 if (data != null) {
                     if (resultCode == RESULT_OK) {
                         //判断手机系统版本号
+                        String imagePath;
+                        String cutPath;
                         if (Build.VERSION.SDK_INT >= 19) {
                             //4.4以及以上系统使用这个方法
-                            String imagePath = ResolveTheLocalImageUri.handleImageOnKitKat(data, context); // 4.4版本开始选取相册中的图片不再返回真实的uri  ////         解析图片真正的uri地址
+                            imagePath = ResolveTheLocalImageUri.handleImageOnKitKat(data, context); // 4.4版本开始选取相册中的图片不再返回真实的uri  ////         解析图片真正的uri地址
                              pictureHel=new PictureHelp(this);
-                             pictureHel.setAuthority("com.example.quansb.qbstore.fileprovider");
-                           String cutPath=Environment.getExternalStorageDirectory().getPath()+
-                                    "/cutcamera.png";
+                             pictureHel.setAuthority(authority);
+                            cutPath=Environment.getExternalStorageDirectory().getPath()+"/cutcamera.png";
                             pictureHel.cutForPhoto(imagePath,cutPath,Constant.CROP_REQUEST_CODE);
                         } else {
                             //4.4以下系统使用这个方法
-                            handleImageBeforeKitKat(data);
+                            imagePath =   ResolveTheLocalImageUri.handleImageBeforeKitKat(data,context);
+                            pictureHel=new PictureHelp(this);
+                            pictureHel.setAuthority(authority);
+                            cutPath=Environment.getExternalStorageDirectory().getPath()+"/cutcamera.png";
+                            pictureHel.cutForPhoto(imagePath,cutPath,Constant.CROP_REQUEST_CODE);
                         }
                     }
                 }
                 break;
 
-            case PHOTO_CAMERA_CODE:  //打开相机 回调
+            case PHOTO_CAMERA_CODE:                 //打开相机 回调  得到相机拍照返回的 图片 路径
                     if (resultCode==RESULT_OK){
-                        try {
-                            Bitmap bitmap=BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                            pictureHel=new PictureHelp(this);
-                            pictureHel.setAuthority("com.example.quansb.qbstore.fileprovider");
-                            pictureHel.cutForPhoto( cameraPhotoPath,Environment.getExternalStorageDirectory().getPath()+
-                                    "/cutcamera.png",Constant.CROP_REQUEST_CODE);
-
-
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
+                        pictureHel=new PictureHelp(this);
+                        pictureHel.setAuthority(authority);
+                        pictureHel.cutForPhoto( cameraPhotoPath,Environment.getExternalStorageDirectory().getPath()+"/cutcamera.png",Constant.CROP_REQUEST_CODE);
                     }
                 break;
 
@@ -430,11 +430,7 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
         }
     }
 
-    private void handleImageBeforeKitKat(Intent data) {
-        Uri uri = data.getData();
-        String imagePath = getImagePath(uri, null, context);
-        displayImage(imagePath);
-    }
+
 
     private void displayImage(String imagePath) {               //通过图片路径展示图片
         if (imagePath != null) {
@@ -444,9 +440,5 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
             Toast.makeText(context, R.string.failed_to_get_image, Toast.LENGTH_SHORT).show();
         }
     }
-
-
-
-
 
 }
