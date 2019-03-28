@@ -50,4 +50,13 @@
     <string name="you_denied_permission">你拒绝了权限</string>
     <string name="failed_to_get_image">获取图片失败</string>
     <string name="fail_net">修改失败，请确认是否连接网络</string>
+    <string name="classification">分类</string>
+    <string name="fensifuli">粉丝福利社</string>
+    <string name="free_flrut">免费领水果</string>
+    <string name="charge">充值中心</string>
+    <string name="juhuasuan">聚划算</string>
+    <string name="eleme">饿了么</string>
+    <string name="jingdong">京东</string>
+    <string name="tainmao">天猫</string>
+    <string name="tianmaojinkou">天猫进口</string>
 </resources>

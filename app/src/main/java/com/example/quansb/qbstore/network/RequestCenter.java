@@ -11,7 +11,7 @@ import com.mysdk.okhttp.request.RequestParams;
 
 import okhttp3.OkHttpClient;
 
-public class RequestCenter {
+public class RequestCenter   {
     /**
      * 登录请求
      * @param context

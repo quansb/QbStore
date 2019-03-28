@@ -19,6 +19,13 @@
         <item name="colorControlActivated">@color/color_f36908</item>
     </style>
 
+    <style name="homeText" >
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/color_white</item>
+       <item name="android:textSize">@dimen/dimen_8dp</item>
+    </style>
+
+
 
 
 

@@ -32,4 +32,5 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile project(path: ':mysdk')
     compile 'com.aliyun.dpa:oss-android-sdk:+'
+    compile 'com.youth.banner:banner:1.4.9'
 }

@@ -92,8 +92,6 @@
          android:layout_height="wrap_content"
          android:orientation="horizontal"
          android:layout_marginTop="@dimen/dimen_20dp"
-
-
          >
 
          <TextView
