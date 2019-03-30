@@ -10,6 +10,8 @@
     </style>
 
 
+
+
     <style name="MyEditText" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/transparent</item>
@@ -24,6 +26,17 @@
         <item name="android:textColor">@color/color_white</item>
        <item name="android:textSize">@dimen/dimen_8dp</item>
     </style>
+
+    <style name="rush_Text" >
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/color_ff3936</item>
+        <item name="android:textSize">@dimen/dimen_10sp</item>
+        <item name="android:background">@drawable/bg_common_text_style</item>
+        <item name="android:paddingLeft">@dimen/dimen_3dp</item>
+       <item name="android:paddingRight">@dimen/dimen_3dp</item>
+
+    </style>
+
 
 
 

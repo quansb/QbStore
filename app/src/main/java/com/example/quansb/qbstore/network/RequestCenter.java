@@ -92,6 +92,23 @@ public class RequestCenter   {
     }
 
 
+    public static void toUpdateBanner(String f_id, DisposeDataListener listener, Class<?> clazz){
+        RequestParams requestParams=new RequestParams();
+        requestParams.put("user_id",f_id);
+        requestParams.PARAMS="getBanners";
+        CommonOkHttpClient.post(CommonRequest.
+                createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
+    }
+
+
+    public static void toUpdateHomeData(String f_id, DisposeDataListener listener, Class<?> clazz){
+        RequestParams requestParams=new RequestParams();
+        requestParams.put("user_id",f_id);
+        requestParams.PARAMS="getHomeData";
+        CommonOkHttpClient.post(CommonRequest.
+                createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
+    }
+
 
 
 }

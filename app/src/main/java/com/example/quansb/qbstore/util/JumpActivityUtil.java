@@ -3,6 +3,7 @@ package com.example.quansb.qbstore.util;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import com.example.quansb.qbstore.activity.AboutActivity;
 import com.example.quansb.qbstore.activity.AddressManagementActivity;
@@ -20,6 +21,10 @@ import com.example.quansb.qbstore.activity.PersonalInformationActivity;
 import com.example.quansb.qbstore.activity.RegisterActivity;
 import com.example.quansb.qbstore.activity.SettingActivity;
 import com.example.quansb.qbstore.activity.TakeBackGoodsActivity;
+import com.example.quansb.qbstore.activity.homebanner.BannerJumpActivity;
+
+import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.example.quansb.qbstore.util.Constant.INFO_REQUEST_CODE;
 
@@ -113,6 +118,15 @@ public class JumpActivityUtil {
     public static void goToModifyHeadPictureActivity(Context context){
         Intent intent=new Intent(context,ModifyHeadPictureActivity.class);       // 跳转到修改头像界面
         context.startActivity(intent);
+    }
+
+    public static void goToBannerJumpActivity(Context context, int position, ArrayList banner_jump_url){
+        Intent intent=new Intent(context,BannerJumpActivity.class);// 跳转到WebView Activity
+        intent.putExtra("banner_jump_url",banner_jump_url);
+        intent.putExtra("position",position);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Objects.requireNonNull(context).startActivity(intent);
+        }
     }
 
 }

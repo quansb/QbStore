@@ -51,6 +51,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         Boolean bool = new Boolean(true);
         preferencesHelp.put("isLogin", bool);
         preferencesHelp.putObject("userinfo",userInfo);
+        preferencesHelp.putString("user_id",userInfo.getUser_id());
         JumpActivityUtil.goToHomeActivity(LoginActivity.this);
     }
 

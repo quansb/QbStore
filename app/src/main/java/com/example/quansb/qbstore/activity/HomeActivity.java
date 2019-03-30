@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+
 import android.view.View;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private boolean loginStatus;
+
     @Bind(R.id.tv_home)
     TextView tvHome;
     @Bind(R.id.tv_shopping_cart)
@@ -47,12 +49,12 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             transaction.show(mineFragment);
             transaction.commit();
         }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override

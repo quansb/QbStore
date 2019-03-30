@@ -6,8 +6,6 @@ import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.base.BaseActivity;
-import com.example.quansb.qbstore.util.JumpActivityUtil;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -27,6 +25,7 @@ public class AboutActivity extends BaseActivity implements View.OnClickListener 
         tvBack.setOnClickListener(this);
         tvBack.setText(R.string.about);
         tvCommonCentre.setVisibility(View.GONE);
+
     }
 
     @Override
