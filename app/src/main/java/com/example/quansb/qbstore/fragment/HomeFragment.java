@@ -7,6 +7,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +17,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+
 import com.example.quansb.qbstore.R;
+import com.example.quansb.qbstore.adapter.GoodsAdapter;
 import com.example.quansb.qbstore.base.BaseFragment;
 import com.example.quansb.qbstore.entity.BannersEntity;
+import com.example.quansb.qbstore.entity.GoodsEntity;
 import com.example.quansb.qbstore.entity.HomeDataEntity;
 import com.example.quansb.qbstore.entity.UserInfo;
 import com.example.quansb.qbstore.network.RequestCenter;
@@ -47,8 +51,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     LinearLayout llUpDataColorFirstLayout;
     @Bind(R.id.ll_up_data_color_second_layout)
     LinearLayout llUpDataColorSecondLayout;
-    //    @Bind(R.id.ll_up_data_color_theme_layout)
-//    LinearLayout llUpDataColorThemeLayout;
     @Bind(R.id.sv_scroll_view)
     NestedScrollView svScrollView;
     @Bind(R.id.mBanner)
@@ -63,6 +65,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     LinearLayout llRushTableBottomLift;
     @Bind(R.id.ll_rush_table_bottom_right)
     LinearLayout llRushTableBottomRight;
+    @Bind(R.id.rv_recycler_view)
+    RecyclerView rvRecyclerView;
+
 
     //    private  BannersEntity bannersEntity;
     private ArrayList<String> list_title;
@@ -72,6 +77,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private ArrayList<String> list_path = new ArrayList<>();
     private ArrayList<String> colors = new ArrayList<>();
     private ArrayList<String> banner_jump_url = new ArrayList<>();
+    private ArrayList<GoodsEntity> goodsEntityArrayList = new ArrayList<>();
     private Boolean flag;
     private Context context;
     private int mCurrntIndex = 0;
@@ -102,27 +108,50 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         svScrollView.setOnScrollChangeListener(this);
 
 
-
         RequestCenter.toUpdateHomeData(user_id, new DisposeDataListener() {
             @Override
             public void onSuccess(Object object) {
-               homeDataEntity= (HomeDataEntity) object;
+                homeDataEntity = (HomeDataEntity) object;
                 if (Integer.valueOf(homeDataEntity.getStatus()) > 0) {
                     upDataBanner();
                     loadRushToBuyLayout();
-
+                    toLoadGoods();
+                    Toast.makeText(context, R.string.loading, Toast.LENGTH_SHORT).show();
                 } else {
                     Logger.showToastShort(homeDataEntity.getMsg());
                 }
             }
+
             @Override
             public void onFailure(Object object) {
-                OkHttpException okHttpException= (OkHttpException) object;
+                OkHttpException okHttpException = (OkHttpException) object;
                 LoggerUtil.logInfo(okHttpException.getEmsg().toString());
-                Toast.makeText(context,okHttpException.getEmsg().toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, R.string.net_exception, Toast.LENGTH_LONG).show();
             }
         }, HomeDataEntity.class);
 
+    }
+
+
+    /**
+     * 加载猜你喜欢模块
+     */
+    private void toLoadGoods() {
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
+        rvRecyclerView.setLayoutManager(gridLayoutManager);
+        rvRecyclerView.setHasFixedSize(true);
+        rvRecyclerView.setNestedScrollingEnabled(false);
+        for (int i = 0; i < homeDataEntity.getGoodsEntities().size(); i++) {
+            String img = homeDataEntity.getGoodsEntities().get(i).getGoods_url();
+            String des = homeDataEntity.getGoodsEntities().get(i).getGoods_des();
+            String price = homeDataEntity.getGoodsEntities().get(i).getGoods_price();
+            String good_id = homeDataEntity.getGoodsEntities().get(i).getGoods_id();
+            GoodsEntity goodsEntity = new GoodsEntity(img, des, price, good_id);
+            goodsEntityArrayList.add(goodsEntity);
+        }
+        GoodsAdapter goodsAdapter = new GoodsAdapter(goodsEntityArrayList,context);
+        rvRecyclerView.setAdapter(goodsAdapter);
     }
 
     /**
@@ -141,6 +170,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private void loadRushToBuyLayout() {
         //        View viewTopLife = LayoutInflater.from(context).inflate(R.layout.common_rush_to_buy_layout, llRushTableTopLeft, false);
 //        llRushTableTopLeft.addView(viewTopLife);
+
         RushToBuyController rushToBuyController = new RushToBuyController(context);
         rushToBuyController.initData(homeDataEntity.getRushGoodsEntities());
         rushToBuyController.loadView(R.layout.common_rush_to_buy_layout, llRushTableTopLeft, 0);
@@ -151,6 +181,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
 
     public void upDataBanner() {
+
         for (BannersEntity.Banner banner : homeDataEntity.getBannersEntity().getBanners()) {
             list_path.add(banner.getBanner_url());
             colors.add(banner.getBanner_color());
@@ -158,6 +189,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             openBanner();
             adaptBannerColor();
         }
+
+
     }
 
 
@@ -229,6 +262,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     }
 
     private void setColor(int i) {
+        if (colors.size() == 0) {
+            return;
+        }
         mCurrntIndex = i;
         if (i == colors.size() + 1) {
             if (flag) {
@@ -316,7 +352,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             rlTitleNameLayout.getBackground().mutate().setAlpha(0);
 
         } else if (contentHeight < scrollY && scrollY < maxAlphaHeight) {
-            llUpDataColorFirstLayout.setBackgroundColor(getResources().getColor(R.color.color_f15555));
+            llUpDataColorFirstLayout.setBackgroundColor(getResources().getColor(R.color.color_T_mall_theme));
 
             llUpDataColorFirstLayout.getBackground().mutate().setAlpha((int) (255 * (1.0 * (scrollY - contentHeight / 4) / maxAlphaHeight)));
             rlTitleNameLayout.getBackground().mutate().setAlpha((int) (255 * (1.0 * (scrollY) / maxAlphaHeight)));
@@ -324,6 +360,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             flag = false;
         } else if (scrollY >= maxAlphaHeight) {
             llUpDataColorFirstLayout.getBackground().mutate().setAlpha(255);
+
         }
 
     }
@@ -332,7 +369,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private class MyLoader implements ImageLoaderInterface {
         @Override
         public void displayImage(Context context, Object path, View imageView) {
-            Glide.with(context).load(path).into((ImageView) imageView);
+            com.mysdk.glide.ImageLoader.getInstance().loadImageView(context, (String) path, (ImageView) imageView);
         }
 
         @Override

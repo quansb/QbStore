@@ -9,13 +9,15 @@ import android.widget.TextView;
 
 import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.entity.HomeDataEntity;
-import com.mysdk.glide.GlideUtil;
+
+import com.example.quansb.qbstore.util.JumpActivityUtil;
+import com.mysdk.glide.ImageLoader;
 
 import java.util.ArrayList;
 
 import cn.iwgang.countdownview.CountdownView;
 
-public class RushToBuyController {
+public class RushToBuyController implements View.OnClickListener {
 
     private Context mContext;
     private TextView tvTopLeft;
@@ -25,7 +27,6 @@ public class RushToBuyController {
     private ImageView imLeftImage;
     private ImageView imRightImage;
     private CountdownView countdownView;
-
 
 
     private ArrayList<HomeDataEntity.rushGoodsEntities> list;
@@ -38,11 +39,11 @@ public class RushToBuyController {
         View view = LayoutInflater.from(mContext).inflate(layoutId, parentLayout, false);
         parentLayout.addView(view);
         ViewHolder viewHolder = new ViewHolder();
-        countdownView=view.findViewById(R.id.cv_count_down);
+        countdownView = view.findViewById(R.id.cv_count_down);
         tvTopLeft = view.findViewById(R.id.tv_top_left_text);
         tvBottomLeft = view.findViewById(R.id.tv_bottom_left_text);
         tvBottomRight = view.findViewById(R.id.tv_bottom_right_text);
-        tvTitle=view.findViewById(R.id.tv_top_left_text);
+        tvTitle = view.findViewById(R.id.tv_top_left_text);
         imLeftImage = view.findViewById(R.id.im_left_image);
         imRightImage = view.findViewById(R.id.im_right_image);
         viewHolder.tvTopLeft = tvTopLeft;
@@ -50,26 +51,43 @@ public class RushToBuyController {
         viewHolder.tvBottomRight = tvBottomRight;
         viewHolder.imLeftImage = imLeftImage;
         viewHolder.imRightImage = imRightImage;
-        viewHolder.tvTitle=tvTitle;
-        viewHolder.countdownView=countdownView;
+        viewHolder.tvTitle = tvTitle;
+        viewHolder.countdownView = countdownView;
+        viewHolder.imLeftImage.setOnClickListener(this);
         setData(viewHolder, index);
 
     }
 
     private void setData(ViewHolder viewHolder, int index) {
-         viewHolder.tvBottomLeft.setText(list.get(index).getLeft_name());
+        viewHolder.tvBottomLeft.setText(list.get(index).getLeft_name());
         viewHolder.tvBottomRight.setText(list.get(index).getRight_name());
         viewHolder.tvTitle.setText(list.get(index).getTitle());
 
-        if(list.get(index).getTitle().equals("限时抢购")){
+        if (list.get(index).getTitle().equals("限时抢购")) {
             viewHolder.countdownView.start(100000);
-        }else {
+        } else {
             viewHolder.countdownView.setVisibility(View.INVISIBLE);
         }
 
+        ImageLoader.getInstance().loadImageView(mContext, list.get(index).getLeft_url(), viewHolder.imLeftImage, true);
+        ImageLoader.getInstance().loadImageView(mContext, list.get(index).getRight_url(), viewHolder.imRightImage, true);
 
-        GlideUtil.loadImageView(mContext,list.get(index).getLeft_url(),viewHolder.imLeftImage);
-        GlideUtil.loadImageView(mContext,list.get(index).getRight_url(),viewHolder.imRightImage);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.im_left_image:
+                JumpActivityUtil.goToReadyToSettle(mContext);
+                break;
+            case R.id.im_right_image:
+                break;
+
+        }
+
+
     }
 
     private class ViewHolder {

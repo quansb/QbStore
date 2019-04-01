@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white"
+    >
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="2.5dp"
+            >
+
+            <ImageView
+                android:id="@+id/im_goods_image"
+                android:layout_gravity="center"
+                android:layout_width="170dp"
+                android:layout_height="170dp"
+                android:src="@drawable/wei"
+                android:background="@color/color_EEEEEE"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_FAFAFA"
+                android:orientation="vertical"
+                android:padding="@dimen/dimen_10dp">
+
+                <TextView
+                    android:id="@+id/tv_goods_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/des"
+                    android:textColor="@color/color_000000"
+                    android:textSize="@dimen/dimen_12sp" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/dimen_5dp"
+                    android:paddingBottom="@dimen/dimen_5dp"
+                    >
+
+                    <ImageView
+                        android:layout_width="@dimen/dimen_14dp"
+                        android:layout_height="@dimen/dimen_24dp"
+                        android:src="@drawable/ic_money" />
+
+                    <TextView
+                        android:id="@+id/tv_goods_prices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="0dp"
+                        android:text="999"
+                        android:textColor="@color/color_T_mall_theme"
+                        android:textSize="@dimen/dimen_17sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+

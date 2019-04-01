@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class BannersEntity extends BaseDataEntity {
    private ArrayList<Banner> banners;
 
+
     public ArrayList<Banner> getBanners() {
         if (banners==null){
             banners=new ArrayList<>();

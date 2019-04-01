@@ -73,6 +73,7 @@
         <activity android:name=".activity.AgeChangeActivity" />
         <activity android:name=".activity.ModifyHeadPictureActivity" />
         <activity android:name=".activity.homebanner.BannerJumpActivity" />
+        <activity android:name=".activity.homeshopping.ReadyToSettle" />
 
     </application>
 

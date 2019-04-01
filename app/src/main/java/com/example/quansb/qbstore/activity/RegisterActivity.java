@@ -82,6 +82,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onConfirm() {
                 JumpActivityUtil.goToLoginActivity(RegisterActivity.this);
+                finish();
             }
             @Override
             public void onCancel() {
@@ -103,7 +104,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             Logger.showToastShort(getString(R.string.input_canno_null));
             return;
         }
-        RequestCenter.toRegister(this, userName, "123", pwd, new DisposeDataListener() {
+        RequestCenter.toRegister(this, userName, "起个昵称", pwd, new DisposeDataListener() {
             @Override
             public void onSuccess(Object object) {
                 userInfo = (UserInfo) object;
@@ -113,10 +114,9 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     Logger.showToastShort(userInfo.getMsg());
                 }
             }
-
             @Override
             public void onFailure(Object object) {
-                Logger.showToastShort(getString(R.string.network_no_data));
+                Logger.showToastShort(getString(R.string.net_exception));
             }
         }, UserInfo.class);
     }

@@ -46,13 +46,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void updateUI() {
-
         PreferencesHelp preferencesHelp = new PreferencesHelp(this);
         Boolean bool = new Boolean(true);
         preferencesHelp.put("isLogin", bool);
         preferencesHelp.putObject("userinfo",userInfo);
         preferencesHelp.putString("user_id",userInfo.getUser_id());
         JumpActivityUtil.goToHomeActivity(LoginActivity.this);
+
+        finish();
     }
 
     @Override
@@ -94,6 +95,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.tv_register:
                 JumpActivityUtil.goToRegisterActivity(this);
+                finish();
                 break;
         }
 
@@ -110,18 +112,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             @Override
             public void onSuccess(Object object) {
                 userInfo = (UserInfo) object;
-
                 if (Integer.valueOf(userInfo.getStatus()) > 0) {
                     updateUI();
-
+                    Logger.showToastShort(userInfo.getMsg());
                 } else {
                     Logger.showToastShort(userInfo.getMsg());
                 }
             }
-
             @Override
             public void onFailure(Object object) {
-                Logger.showToastShort(getString(R.string.network_no_data));
+                Logger.showToastShort(getString(R.string.net_exception));
             }
         }, UserInfo.class);
     }

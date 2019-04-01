@@ -110,6 +110,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
                     PreferencesHelp preferencesHelp = new PreferencesHelp(SettingActivity.this);
                     Boolean bool = new Boolean(false);
                     preferencesHelp.put("isLogin", bool);
+                    preferencesHelp.put("user_id","");
                     updateUI();
                 } else {
                     Logger.showToastShort(userInfo.getMsg());
@@ -117,7 +118,7 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             }
             @Override
             public void onFailure(Object object) {
-
+                Logger.showToastShort(getString(R.string.net_exception));
             }
         }, UserInfo.class);
     }

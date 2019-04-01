@@ -35,4 +35,5 @@ dependencies {
     compile 'com.aliyun.dpa:oss-android-sdk:+'
     compile 'com.youth.banner:banner:1.4.9'
     compile 'com.github.iwgang:countdownview:2.1.5'
+    implementation 'com.android.support:recyclerview-v7:27.0.2'
 }

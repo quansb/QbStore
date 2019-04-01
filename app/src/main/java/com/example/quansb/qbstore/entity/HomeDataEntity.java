@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class HomeDataEntity extends BaseDataEntity {
     private BannersEntity bannersEntity;
     private ArrayList<rushGoodsEntities> rushGoodsEntities;
+   private ArrayList<GoodsEntity> goodsEntities;
+
+    public ArrayList<GoodsEntity> getGoodsEntities() {
+        return goodsEntities;
+    }
+
+    public void setGoodsEntities(ArrayList<GoodsEntity> goodsEntities) {
+        this.goodsEntities = goodsEntities;
+    }
 
     public BannersEntity getBannersEntity() {
         return bannersEntity;
@@ -87,6 +96,13 @@ public class HomeDataEntity extends BaseDataEntity {
             this.goods_id = goods_id;
         }
     }
+
+
+
+
+
+
+
 
 
 }

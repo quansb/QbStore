@@ -18,7 +18,8 @@ import com.example.quansb.qbstore.entity.UserInfo;
 import com.example.quansb.qbstore.util.Help;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.PreferencesHelp;
-import com.mysdk.glide.GlideUtil;
+
+import com.mysdk.glide.ImageLoader;
 import com.mysdk.logger.LoggerUtil;
 import com.mysdk.view.CircleImageView;
 
@@ -93,12 +94,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         loginStatus = Help.isLogin(mContext);
         if (!loginStatus) {
             tvLogin.setText(R.string.login);
-            civHead.setImageResource(R.drawable.ic_login);
+//            ImageLoader.getInstance().loadLocalImage(mContext,R.drawable.ic_login,civHead);
             return;
         }
+
         PreferencesHelp preferencesHelp = new PreferencesHelp(getContext());
         UserInfo userInfo = (UserInfo) preferencesHelp.getObject("userinfo", UserInfo.class);
-        GlideUtil.loadImageView(mContext,userInfo.getAvatar_img(),civHead);
+        ImageLoader.getInstance().loadImageViewLoding(mContext,userInfo.getAvatar_img(),civHead,R.drawable.ic_placeholder,R.drawable.ic_login,false);
+
         LoggerUtil.logInfo( userInfo.getAvatar_img());
         tvLogin.setText(userInfo.getUser_name());
     }

@@ -22,6 +22,7 @@ import com.example.quansb.qbstore.activity.RegisterActivity;
 import com.example.quansb.qbstore.activity.SettingActivity;
 import com.example.quansb.qbstore.activity.TakeBackGoodsActivity;
 import com.example.quansb.qbstore.activity.homebanner.BannerJumpActivity;
+import com.example.quansb.qbstore.activity.homeshopping.ReadyToSettle;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -127,6 +128,11 @@ public class JumpActivityUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             Objects.requireNonNull(context).startActivity(intent);
         }
+    }
+
+    public static void goToReadyToSettle(Context context){
+        Intent intent=new Intent(context,ReadyToSettle.class);       // 跳转到修改头像界面
+        context.startActivity(intent);
     }
 
 }

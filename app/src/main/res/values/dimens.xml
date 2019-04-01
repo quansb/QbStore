@@ -96,6 +96,9 @@
     <dimen name="dimen_240dp">240dp</dimen>
     <dimen name="dimen_250dp">250dp</dimen>
     <dimen name="dimen_290dp">290dp</dimen>
+    <dimen name="dimen_350dp">350dp</dimen>
+
+
 
     <dimen name="dimen_10sp">10sp</dimen>
     <dimen name="dimen_11sp">11sp</dimen>

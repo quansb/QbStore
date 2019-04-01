@@ -14,6 +14,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,8 +34,10 @@ import com.example.quansb.qbstore.util.PictureHelp;
 import com.example.quansb.qbstore.util.PreferencesHelp;
 import com.example.quansb.qbstore.util.ResolveTheLocalImageUri;
 import com.example.quansb.qbstore.view.SelectDialog;
-import com.mysdk.glide.GlideUtil;
+
+import com.mysdk.glide.ImageLoader;
 import com.mysdk.okhttp.listener.DisposeDataListener;
+import com.mysdk.util.ImgUtil;
 import com.mysdk.util.StringUtils;
 import com.mysdk.view.CircleImageView;
 
@@ -92,6 +95,7 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
     private PictureHelp pictureHel;
     private String cameraPhotoPath;
     private String authority;
+    private UserInfo info;    //保存网络请求返回的 消息提示
 
     private AlbumAndCamera albumAndCamera;
 
@@ -125,14 +129,7 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
         return R.layout.activity_personal_information_layout;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-        refresh();
 
-    }
 
     @Override
     protected void onResume() {
@@ -145,14 +142,14 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
     public void refresh() {
         loginStatus = Help.isLogin(PersonalInformationActivity.this);
         if (!loginStatus) {
-            tvUserName.setText("");
+            tvUserName.setText("默认昵称");
             tvUserId.setText("");
-            civHead.setImageResource(R.drawable.ic_login);
+            tvSex.setText("未知");
             return;
         }
         PreferencesHelp preferencesHelp = new PreferencesHelp(PersonalInformationActivity.this);
         userInfo = (UserInfo) preferencesHelp.getObject(USER_INFO, UserInfo.class);
-        GlideUtil.loadImageView(PersonalInformationActivity.this, userInfo.getAvatar_img(), civHead);
+        ImageLoader.getInstance().loadImageViewLoding(context,userInfo.getAvatar_img(),civHead,R.drawable.ic_placeholder,R.drawable.ic_login,false);
         tvUserName.setText(userInfo.getUser_name());
         tvUserId.setText(userInfo.getUser_id());
         tvWallet.setText(userInfo.getMoney());
@@ -268,9 +265,10 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
      */
     private void displayImage(String imagePath) {
         if (imagePath != null) {
-            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
-            civHead.setImageBitmap(bitmap);
+            Bitmap bitmap =  ImgUtil.getImage(imagePath);
+            ImageLoader.getInstance().loadLocalBitmapImage(context,bitmap,civHead);
         }
+
     }
 
     /**
@@ -286,15 +284,20 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
             return;
         }
         RequestCenter.toChangePersonalInformation(userId, userName, age, sex, new DisposeDataListener() {
-            @Override
-            public void onSuccess(Object object) {
-                saveData();
-                Toast.makeText(PersonalInformationActivity.this, R.string.modify_successfully, Toast.LENGTH_SHORT).show();
-            }
 
             @Override
+            public void onSuccess(Object object) {
+                info= (UserInfo) object;
+                if (Integer.valueOf(info.getStatus())>0){
+                    saveData();
+                    Logger.showToastShort(info.getMsg());
+                }else {
+                    Logger.showToastShort(info.getMsg());
+                }
+            }
+            @Override
             public void onFailure(Object object) {
-                Toast.makeText(PersonalInformationActivity.this, R.string.fail_net, Toast.LENGTH_SHORT).show();
+                Logger.showToastShort(getString(R.string.net_exception));
             }
         }, UserInfo.class);
 /**
@@ -312,19 +315,17 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
                             if (Integer.valueOf(userInfo1.getStatus()) > 0) {
                                 userInfo.setAvatar_img(url);
                                 saveData();// 更新保存个人信息的对象
-                                displayImage(pictureHel.getCutImgPath());    //在头像展示图片
+                                Logger.showToastShort(userInfo1.getMsg());
                             } else {
                                 Logger.showToastShort(userInfo1.getMsg());
                             }
                         }
-
                         @Override
                         public void onFailure(Object object) {
-
+                            Logger.showToastShort(getString(R.string.net_exception));
                         }
                     }, UserInfo.class);
                 }
-
                 @Override
                 public void onFailure(String msg) {
                     Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
@@ -450,7 +451,11 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
                 break;
 
             case CROP_REQUEST_CODE:
-                displayImage(pictureHel.getCutImgPath());
+                if (resultCode==RESULT_OK){ //坑逼 这句话又不写
+                    Logger.logInfo(pictureHel.getCutImgPath());
+                    displayImage(pictureHel.getCutImgPath());
+                }
+
                 break;
             default:
                 break;
