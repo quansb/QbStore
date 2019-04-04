@@ -447,7 +447,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="商城 STORE"
+                android:text="天猫 TMALL"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/dimen_18sp" />
         </RelativeLayout>

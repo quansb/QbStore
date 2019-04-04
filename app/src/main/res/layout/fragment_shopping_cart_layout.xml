@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_shopping_cart"
     android:layout_width="match_parent"
@@ -7,18 +7,24 @@
     android:background="@color/color_f7f7f7"
     android:orientation="vertical"
     >
+
+
     <LinearLayout
+        android:id="@+id/ll_shopping_cart_title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/color_T_mall_theme"
+        android:paddingLeft="@dimen/dimen_10dp"
+       android:paddingRight="@dimen/dimen_10dp"
+        android:paddingTop="@dimen/dimen_15dp"
+        android:paddingBottom="@dimen/dimen_15dp"
         >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="@dimen/dimen_10dp"
         >
 
         <TextView
@@ -47,18 +53,103 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_below="@+id/ll_shopping_cart_title_layout"
+            android:id="@+id/ll_list_view_layout"
+            android:layout_marginBottom="@dimen/dimen_60dp"
+            >
 
-           <ListView
-               android:id="@+id/lv_list_view"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:layout_margin="@dimen/dimen_10dp"
-               android:divider="@color/color_f7f7f7"
-               android:dividerHeight="@dimen/dimen_10dp"
-               android:scrollbars="none"
-               >
-           </ListView>
+                <ListView
+                    android:layout_marginLeft="@dimen/dimen_10dp"
+                    android:layout_marginRight="@dimen/dimen_10dp"
+                    android:id="@+id/lv_list_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:divider="@color/color_f7f7f7"
+                    android:dividerHeight="@dimen/dimen_10dp"
+                    android:scrollbars="none"
+                    >
+                </ListView>
+
+
+        </LinearLayout>
+
+
+
+
+
+    <RelativeLayout
+
+        android:id="@+id/rl_bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_white"
+        android:padding="@dimen/dimen_10dp"
+        >
+        <ImageView
+            android:id="@+id/im_goods_selected_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_round1"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="合计:"
+            android:layout_toLeftOf="@+id/tv_money_sum"
+            android:textColor="@color/color_2c2c2c"
+            android:layout_centerVertical="true"
+            />
+
+        <TextView
+            android:textColor="@color/color_T_mall_theme"
+            android:id="@+id/tv_money_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥0"
+            android:layout_toLeftOf="@+id/ll_goods_sum_layout"
+            android:layout_centerVertical="true"
+            android:paddingRight="@dimen/dimen_5dp"
+            android:textSize="@dimen/dimen_14sp"
+            />
+
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:id="@+id/ll_goods_sum_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_common_settle_bg"
+            android:paddingLeft="@dimen/dimen_20dp"
+            android:paddingRight="@dimen/dimen_20dp"
+            android:paddingTop="@dimen/dimen_8dp"
+            android:paddingBottom="@dimen/dimen_8dp"
+            >
+
+
+            <TextView
+                android:id="@+id/tv_settlement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="结算"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/dimen_15sp"
+                />
+
+            <TextView
+                android:id="@+id/tv_goods_sum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(0)"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/dimen_15sp"
+                />
 
 
 
@@ -68,4 +159,9 @@
 
 
 
-</LinearLayout>
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

@@ -60,5 +60,4 @@ public class GoodsAdapter extends RecyclerView.Adapter {
         return goodsEntityArrayList.size();
     }
 
-
 }

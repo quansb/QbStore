@@ -60,6 +60,10 @@ public class PreferencesHelp {
         }
         return false;
     }
+    public  String getUserID(){
+
+        return  this.getString("user_id","");
+    }
 
 
     /**

@@ -4,123 +4,173 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/color_white"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:padding="@dimen/dimen_10dp"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/dimen_10dp"
-        android:paddingBottom="@dimen/dimen_10dp"
+
+    <RelativeLayout
+        android:id="@+id/rl_goods_select_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_round1"
-
-
-            />
-
-
         <TextView
+            android:id="@+id/tv_goods_select_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="天猫自营店"
-            android:layout_marginLeft="@dimen/dimen_10dp"
+            android:background="@drawable/ic_round1"
             />
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tv_goods_select_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_round1"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
 
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/dimen_10dp"
-        android:paddingBottom="@dimen/dimen_10dp"
+        android:orientation="vertical"
         >
 
-      <ImageView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:src="@drawable/ic_round1"
-          android:layout_gravity="center_vertical"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
 
-          />
-
-
-        <ImageView
-            android:id="@+id/im_goods_image"
-            android:layout_width="@dimen/dimen_100dp"
-            android:layout_height="@dimen/dimen_100dp"
-            android:src="@drawable/kuangwei"
-            android:background="@color/color_EEEEEE"
-            android:layout_marginLeft="@dimen/dimen_10dp"
-            />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="天猫自营店"
+                android:layout_marginLeft="@dimen/dimen_10dp"
+                android:textColor="@color/color_000000"
+                />
+        </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/dimen_10dp"
+            android:orientation="horizontal"
+            android:paddingTop="@dimen/dimen_10dp"
+            android:paddingBottom="@dimen/dimen_10dp"
             >
-            <TextView
-                android:id="@+id/tv_goods_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="converse匡威官方One star 低帮板鞋 163245C"
-                />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_10dp"
-                android:layout_marginBottom="@dimen/dimen_10dp"
-                >
 
-                <TextView
-                    android:id="@+id/tv_goods_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="黄色;"
-                    />
 
-                <TextView
-                    android:id="@+id/tv_goods_size"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="L"
-                    />
 
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/color_T_mall_theme"
-                android:text="存库紧张"
+            <ImageView
+                android:id="@+id/im_goods_image"
+                android:layout_width="@dimen/dimen_100dp"
+                android:layout_height="@dimen/dimen_100dp"
+                android:src="@drawable/kuangwei"
+                android:background="@color/color_EEEEEE"
+                android:layout_marginLeft="@dimen/dimen_10dp"
                 />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/dimen_10dp"
-                android:paddingBottom="@dimen/dimen_10dp"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dimen_10dp"
                 >
                 <TextView
-                    android:id="@+id/tv_goods_prices"
+                    android:id="@+id/tv_goods_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="converse匡威官方One star 低帮板鞋 163245C"
+                    android:textColor="@color/color_000000"
+                    />
+
+                <LinearLayout
+                    android:id="@+id/ll_goods_parameter_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="￥999"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp"
+                    android:paddingLeft="@dimen/dimen_5dp"
+                    android:paddingRight="@dimen/dimen_10dp"
+                    android:paddingTop="@dimen/dimen_3dp"
+                    android:paddingBottom="@dimen/dimen_3dp"
+                    android:background="@drawable/bg_common_conventional_bg"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_goods_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="黄色;"
+                        android:textSize="@dimen/dimen_12sp"
+                        android:textColor="#6a6a6a"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_goods_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="32"
+                        android:textSize="@dimen/dimen_12sp"
+                        />
+
+                    <TextView
+                        android:layout_width="5dp"
+                        android:layout_height="8dp"
+                        android:text="ˇ"
+                        android:textSize="@dimen/dimen_12sp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dimen_5dp"
+                        />
+
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_goods_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:textColor="@color/color_T_mall_theme"
+                    android:text="存库紧张"
+                    android:textSize="@dimen/dimen_12sp"
                     />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/dimen_10dp"
+                    >
+                    <TextView
+                        android:id="@+id/tv_goods_prices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="￥999"
+                        android:textSize="@dimen/dimen_12sp"
+                        android:textColor="@color/color_T_mall_theme"
+                        />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
+
+
+
     </LinearLayout>
+
+
+
+
+
+
+
+
+
+
 </LinearLayout>

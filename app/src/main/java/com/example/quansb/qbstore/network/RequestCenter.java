@@ -109,6 +109,13 @@ public class RequestCenter   {
                 createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
     }
 
+    public static void toGetShoppingCartData(String f_id, DisposeDataListener listener, Class<?> clazz){
+        RequestParams requestParams=new RequestParams();
+        requestParams.put("user_id",f_id);
+        requestParams.PARAMS="getCartGoods";
+        CommonOkHttpClient.post(CommonRequest.
+                createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
+    }
 
 
 

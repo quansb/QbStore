@@ -1,8 +1,11 @@
 package com.example.quansb.qbstore.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -138,6 +141,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
      */
     private void toLoadGoods() {
 
+
+
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
         rvRecyclerView.setLayoutManager(gridLayoutManager);
         rvRecyclerView.setHasFixedSize(true);
@@ -147,7 +153,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             String des = homeDataEntity.getGoodsEntities().get(i).getGoods_des();
             String price = homeDataEntity.getGoodsEntities().get(i).getGoods_price();
             String good_id = homeDataEntity.getGoodsEntities().get(i).getGoods_id();
-            GoodsEntity goodsEntity = new GoodsEntity(img, des, price, good_id);
+            GoodsEntity goodsEntity = new GoodsEntity(img, des, price, good_id,null,null);
             goodsEntityArrayList.add(goodsEntity);
         }
         GoodsAdapter goodsAdapter = new GoodsAdapter(goodsEntityArrayList,context);
@@ -199,16 +205,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
      */
     private void openBanner() {
 
-//        //放图片地址的集合
-//        list_path = new ArrayList<>();
-//        list_path.add("https://zsc-content.oss-cn-shenzhen.aliyuncs.com/first_banner.jpg");
-//        //   list_path.add("https://img.alicdn.com/tfs/TB1nRdPMAPoK1RjSZKbXXX1IXXa-990-320.jpg_1080x1800Q90s50.jpg");
-//        list_path.add("https://zsc-content.oss-cn-shenzhen.aliyuncs.com/second_banner.jpg");
-//        list_path.add("https://zsc-content.oss-cn-shenzhen.aliyuncs.com/third_banner.jpg");
-//        //  list_path.add("https://img.alicdn.com/tfs/TB1_3YxNCzqK1RjSZFpXXakSXXa-990-320.jpg_1080x1800Q90s50.jpg");
-//        list_path.add("https://zsc-content.oss-cn-shenzhen.aliyuncs.com/fourth_banner.jpg");
-//        list_path.add("https://zsc-content.oss-cn-shenzhen.aliyuncs.com/fifth_banner.jpg");
-        //放标题的集合
         list_title = new ArrayList<>();
         list_title.add("轮播图1");   //轮播图1    轮播图2    轮播图3    轮播图4
         list_title.add("轮播图2");
@@ -342,25 +338,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     public void onScrollChange(NestedScrollView nestedScrollView, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
 
 
-//        int showTitleLayoutHeight = rlTitleNameLayout.getHeight() * 3;
-        int maxAlphaHeight = rlTitleNameLayout.getHeight() * 3;
 
+        int maxAlphaHeight = rlTitleNameLayout.getHeight() * 3;
         int contentHeight = (int) (llUpDataColorSecondLayout.getHeight() * 0.65);
         if (scrollY <= contentHeight) {
             flag = true;
             setColor(mCurrntIndex);
             rlTitleNameLayout.getBackground().mutate().setAlpha(0);
-
         } else if (contentHeight < scrollY && scrollY < maxAlphaHeight) {
             llUpDataColorFirstLayout.setBackgroundColor(getResources().getColor(R.color.color_T_mall_theme));
-
             llUpDataColorFirstLayout.getBackground().mutate().setAlpha((int) (255 * (1.0 * (scrollY - contentHeight / 4) / maxAlphaHeight)));
             rlTitleNameLayout.getBackground().mutate().setAlpha((int) (255 * (1.0 * (scrollY) / maxAlphaHeight)));
-//            rlTitleNameLayout.setBackgroundColor(getResources().getColor(R.color.color_f15555));
             flag = false;
         } else if (scrollY >= maxAlphaHeight) {
             llUpDataColorFirstLayout.getBackground().mutate().setAlpha(255);
-
         }
 
     }
