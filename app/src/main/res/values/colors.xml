@@ -29,5 +29,9 @@
     <color name="color_FAFAFA">#fafafa</color>
     <color name="color_EEEEEE">#EEEEEE</color>
     <color name="color_T_mall_theme">#ff1111</color>
+    <color name="color_EFEFEF">#EFEFEF</color>
+    <color name="color_3e3e3e">#3e3e3e</color>
+    <color name="color_cbcbcb">#cbcbcb</color>
+    <color name="color_8a000000">#8a000000</color>
 
 </resources>

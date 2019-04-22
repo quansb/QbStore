@@ -11,6 +11,33 @@ public class GoodsEntity  {
     private String goods_colors;
     private String goods_size;
     private String goods_status;
+    private String  courier;
+    private String pin;
+    private String local;
+
+    public String getCourier() {
+        return courier;
+    }
+
+    public void setCourier(String courier) {
+        this.courier = courier;
+    }
+
+    public String getPin() {
+        return pin;
+    }
+
+    public void setPin(String pin) {
+        this.pin = pin;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
+    }
 
     public String getIs_choose() {
         if (is_choose==null){

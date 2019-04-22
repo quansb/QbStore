@@ -66,6 +66,11 @@ public class PreferencesHelp {
     }
 
 
+    public String getUserHasPwd(){
+        return this.getString("has_pwd","");
+    }
+
+
     /**
      * 从sp中读取
      *

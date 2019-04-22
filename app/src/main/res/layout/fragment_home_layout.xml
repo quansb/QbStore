@@ -292,14 +292,13 @@
                     </LinearLayout>
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <com.youth.banner.Banner
                         android:id="@+id/mBanner"
-                        android:layout_width="360dp"
+                        android:layout_width="match_parent"
                         android:layout_height="@dimen/dimen_150dp"
                         apps:indicator_height="@dimen/dimen_6dp"
                         apps:indicator_margin="@dimen/dimen_3dp"
@@ -364,6 +363,7 @@
                             android:layout_weight="1"
                             android:orientation="horizontal"
                             android:layout_marginRight="@dimen/dimen_5dp"
+
                             >
                         </LinearLayout>
 

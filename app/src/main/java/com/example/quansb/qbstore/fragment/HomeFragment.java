@@ -36,6 +36,7 @@ import com.example.quansb.qbstore.view.RushToBuyController;
 import com.mysdk.logger.LoggerUtil;
 import com.mysdk.okhttp.exception.OkHttpException;
 import com.mysdk.okhttp.listener.DisposeDataListener;
+import com.mysdk.util.StatusBarUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -140,10 +141,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
      * 加载猜你喜欢模块
      */
     private void toLoadGoods() {
-
-
-
-
         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2);
         rvRecyclerView.setLayoutManager(gridLayoutManager);
         rvRecyclerView.setHasFixedSize(true);
@@ -176,7 +173,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     private void loadRushToBuyLayout() {
         //        View viewTopLife = LayoutInflater.from(context).inflate(R.layout.common_rush_to_buy_layout, llRushTableTopLeft, false);
 //        llRushTableTopLeft.addView(viewTopLife);
-
         RushToBuyController rushToBuyController = new RushToBuyController(context);
         rushToBuyController.initData(homeDataEntity.getRushGoodsEntities());
         rushToBuyController.loadView(R.layout.common_rush_to_buy_layout, llRushTableTopLeft, 0);
@@ -187,7 +183,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
 
 
     public void upDataBanner() {
-
         for (BannersEntity.Banner banner : homeDataEntity.getBannersEntity().getBanners()) {
             list_path.add(banner.getBanner_url());
             colors.add(banner.getBanner_color());
@@ -195,10 +190,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             openBanner();
             adaptBannerColor();
         }
-
-
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden){
+            mBanner.stopAutoPlay();
+        }else {
+            mBanner.startAutoPlay();
+            StatusBarUtil.setColor(getActivity(),setColor(mCurrntIndex),0);
+        }
+    }
 
     /**
      * 初始化轮播图 启动banner
@@ -257,33 +260,37 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
         });
     }
 
-    private void setColor(int i) {
+    private int setColor(int i) {
         if (colors.size() == 0) {
-            return;
+            return 0;
         }
         mCurrntIndex = i;
         if (i == colors.size() + 1) {
             if (flag) {
                 llUpDataColorFirstLayout.setBackgroundColor(Color.parseColor(colors.get(0)));
+                StatusBarUtil.setColor(getActivity(),Color.parseColor(colors.get(0)),0);
             }
 
             llUpDataColorSecondLayout.setBackgroundColor(Color.parseColor(colors.get(0)));
             //   llUpDataColorThemeLayout.setBackgroundColor(Color.parseColor(colors.get(0)));   //主题更换颜色
-
+               return  Color.parseColor(colors.get(0));
         } else if (i == 0) {
             if (flag) {
                 llUpDataColorFirstLayout.setBackgroundColor(Color.parseColor(colors.get(colors.size() - 1)));
+                StatusBarUtil.setColor(getActivity(),Color.parseColor(colors.get(colors.size() - 1)),0);
             }
 
             llUpDataColorSecondLayout.setBackgroundColor(Color.parseColor(colors.get(colors.size() - 1)));
             //        llUpDataColorThemeLayout.setBackgroundColor(Color.parseColor(colors.get(colors.size() - 1)));
-
+            return  Color.parseColor(colors.get(colors.size() - 1));
         } else {
             if (flag) {
                 llUpDataColorFirstLayout.setBackgroundColor(Color.parseColor(colors.get(i - 1)));
+                StatusBarUtil.setColor(getActivity(),Color.parseColor(colors.get(i - 1)),0);
             }
             llUpDataColorSecondLayout.setBackgroundColor(Color.parseColor(colors.get(i - 1)));
             // llUpDataColorThemeLayout.setBackgroundColor(Color.parseColor(colors.get(i - 1)));
+            return  Color.parseColor((colors.get(i - 1)));
         }
     }
     //*************************************************
@@ -292,7 +299,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
     @Override
     public void onStart() {
         super.onStart();
-        mBanner.startAutoPlay();
+     //   mBanner.startAutoPlay();
     }
 
     @Override
@@ -346,6 +353,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener, 
             setColor(mCurrntIndex);
             rlTitleNameLayout.getBackground().mutate().setAlpha(0);
         } else if (contentHeight < scrollY && scrollY < maxAlphaHeight) {
+            StatusBarUtil.setColor(getActivity(),getResources().getColor(R.color.color_000000));
             llUpDataColorFirstLayout.setBackgroundColor(getResources().getColor(R.color.color_T_mall_theme));
             llUpDataColorFirstLayout.getBackground().mutate().setAlpha((int) (255 * (1.0 * (scrollY - contentHeight / 4) / maxAlphaHeight)));
             rlTitleNameLayout.getBackground().mutate().setAlpha((int) (255 * (1.0 * (scrollY) / maxAlphaHeight)));

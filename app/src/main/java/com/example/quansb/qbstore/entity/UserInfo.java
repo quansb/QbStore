@@ -12,6 +12,15 @@ public class UserInfo implements Serializable{
     private String avatar_img;
     private String sex;
     private String money;
+    private String has_pwd;
+
+    public String getHas_pwd() {
+        return has_pwd;
+    }
+
+    public void setHas_pwd(String has_pwd) {
+        this.has_pwd = has_pwd;
+    }
 
     public String getMoney() {
         return money;

@@ -92,6 +92,12 @@ public class ShoppingCartGoodsAdapter extends BaseAdapter {
         }
     }
 
+    public void clearData() {
+        if (cartGoodsArrayList!=null){
+            cartGoodsArrayList.clear();
+        }
+    }
+
 
     public interface OnClickListener {
         void onClick(GoodsEntity goodsEntity);

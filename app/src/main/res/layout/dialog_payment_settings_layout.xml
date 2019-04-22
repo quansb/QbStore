@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/color_white"
+            >
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <include layout="@layout/common_top_layout">
+                </include>
+
+                <com.example.quansb.qbstore.view.MyPassWordView
+                    android:id="@+id/my_pwd_view"
+                    android:layout_marginTop="@dimen/dimen_20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                >
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/tv_1"
+                       style="@style/pwd_text"
+                        android:text="1"
+                        />
+                    <TextView
+                        android:id="@+id/tv_2"
+                        style="@style/pwd_text"
+                        android:text="2"
+                        />
+                    <TextView
+                        android:id="@+id/tv_3"
+                        style="@style/pwd_text"
+                        android:text="3"
+                        />
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/tv_4"
+                        style="@style/pwd_text"
+                        android:text="4"
+                        />
+                    <TextView
+                        android:id="@+id/tv_5"
+                        style="@style/pwd_text"
+                        android:text="5"
+                        />
+                    <TextView
+                        android:id="@+id/tv_6"
+                        style="@style/pwd_text"
+                        android:text="6"
+                        />
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/tv_7"
+                        style="@style/pwd_text"
+                        android:text="7"
+                        />
+                    <TextView
+                        android:id="@+id/tv_8"
+                        style="@style/pwd_text"
+                        android:text="8"
+                        />
+                    <TextView
+                        android:id="@+id/tv_9"
+                        style="@style/pwd_text"
+                        android:text="9"
+                        />
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        style="@style/pwd_text"
+                        android:background="#e3e8ee"
+                        />
+                    <TextView
+                        android:id="@+id/tv_0"
+                        style="@style/pwd_text"
+                        android:text="0"
+                        />
+                    <TextView
+                        android:id="@+id/tv_delete"
+                        style="@style/pwd_text"
+                        android:text="x"
+                        android:background="#e3e8ee"
+                        />
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

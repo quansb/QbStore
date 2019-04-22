@@ -21,6 +21,7 @@ import com.example.quansb.qbstore.util.PreferencesHelp;
 
 import com.mysdk.glide.ImageLoader;
 import com.mysdk.logger.LoggerUtil;
+import com.mysdk.util.StatusBarUtil;
 import com.mysdk.view.CircleImageView;
 
 import butterknife.Bind;
@@ -67,6 +68,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_mine_layout, container, false);
         ButterKnife.bind(this, view);
+        StatusBarUtil.setColor(getActivity(),getResources().getColor(R.color.color_white),0);
         return view;
     }
 
@@ -77,10 +79,18 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         initListener();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden){
+            StatusBarUtil.setColor(getActivity(),getResources().getColor(R.color.color_white),0);
+        }
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override

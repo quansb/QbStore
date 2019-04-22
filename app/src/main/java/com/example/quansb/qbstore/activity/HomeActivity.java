@@ -6,8 +6,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.quansb.qbstore.R;
 
@@ -15,6 +17,7 @@ import com.example.quansb.qbstore.base.BaseActivity;
 import com.example.quansb.qbstore.fragment.HomeFragment;
 import com.example.quansb.qbstore.fragment.MineFragment;
 import com.example.quansb.qbstore.fragment.ShoppingCartFragment;
+import com.mysdk.util.StatusBarUtil;
 
 import butterknife.Bind;
 
@@ -30,6 +33,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     private FragmentManager fragmentManager;
     private FragmentTransaction transaction;
     private boolean loginStatus;
+    private long exitTime=0;
 
     @Bind(R.id.tv_home)
     TextView tvHome;
@@ -43,14 +47,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int id=getIntent().getIntExtra("id",0);
-        if(id==1){
-        FragmentTransaction transaction=fragmentManager.beginTransaction();
-            transaction.show(mineFragment);
-            transaction.commit();
-        }
+
+//        int id=getIntent().getIntExtra("id",0);
+//        if(id==1){
+//        FragmentTransaction transaction=fragmentManager.beginTransaction();
+//            transaction.show(mineFragment);
+//            transaction.commit();
+//        }
+        StatusBarUtil.setTransparent(this);
 
     }
+
+
 
     @Override
     protected void onResume() {
@@ -165,5 +173,31 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
             index = 2;
         }
     }
+
+
+
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                //弹出提示，可以有多种方式
+                Toast.makeText(getApplicationContext(), "再按一次返回键退出程序", Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+
+
+
+
+
 }
 

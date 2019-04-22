@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:apps="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_f7f7f7"
     android:orientation="vertical">
 
@@ -14,15 +15,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            >
 
-            <ImageView
-                android:id="@+id/im_goods_image"
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/wei" />
+                apps:indicator_height="@dimen/dimen_6dp"
+                apps:indicator_margin="@dimen/dimen_3dp"
+                apps:indicator_width="@dimen/dimen_6dp"
+                />
 
 
             <LinearLayout
@@ -31,21 +36,45 @@
                 android:background="@color/color_white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:padding="@dimen/dimen_10dp"
-                    android:text="￥699"
-                    android:textColor="@color/color_T_mall_theme"
-                    android:textSize="@dimen/dimen_20sp" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/dimen_10dp">
+                    android:paddingTop="@dimen/dimen_10dp"
+                    android:paddingLeft="@dimen/dimen_10dp"
+                    android:paddingRight="@dimen/dimen_10dp"
+                    >
+                    <ImageView
+                        android:id="@+id/im_ic_rmb"
+                        android:layout_width="@dimen/dimen_18dp"
+                        android:layout_height="@dimen/dimen_18dp"
+                        android:background="@drawable/ic_money"
+                        android:layout_centerVertical="true"
+                        android:scaleType="fitXY"
+                        />
+                    <TextView
+                        android:textStyle="bold"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/dimen_17dp"
+                        android:id="@+id/tv_goods_prices"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="699"
+                        android:textColor="@color/color_T_mall_theme"
+                        android:textSize="@dimen/dimen_22sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dimen_10dp"
+                    android:paddingRight="@dimen/dimen_10dp"
+                    android:paddingBottom="@dimen/dimen_10dp"
+                    >
 
                     <TextView
+                        android:id="@+id/tv_goods_details"
                         android:paddingRight="@dimen/dimen_5dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -54,13 +83,11 @@
                         android:textSize="@dimen/dimen_15sp"
                         android:layout_toLeftOf="@+id/im_share"
                         />
-
                     <ImageView
                         android:id="@+id/im_share"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-
                         android:src="@drawable/ic_share" />
                 </RelativeLayout>
 
@@ -72,6 +99,7 @@
                     android:padding="@dimen/dimen_10dp">
 
                     <TextView
+                        android:id="@+id/tv_goods_courier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -79,6 +107,7 @@
                         android:textSize="@dimen/dimen_12sp" />
 
                     <TextView
+                        android:id="@+id/tv_goods_sales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -86,6 +115,7 @@
                         android:textSize="@dimen/dimen_12sp" />
 
                     <TextView
+                        android:id="@+id/tv_goods_local"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -235,13 +265,6 @@
             </LinearLayout>
 
 
-
-
-
-
-
-
-
             <LinearLayout
                 android:background="@color/color_white"
                 android:layout_width="match_parent"
@@ -249,38 +272,12 @@
                 android:orientation="vertical"
                 >
 
-
-                <ImageView
+                <ListView
+                    android:id="@+id/lv_list_view"
                     android:layout_marginTop="@dimen/dimen_10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/kuangwei"
-
+                    android:layout_height="10000dp"
                     />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_alignParentLeft="true"
-                    android:src="@drawable/kuangwei"
-
-                    />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/kuangwei" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/kuangwei" />
-
             </LinearLayout>
 
 
@@ -295,6 +292,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/tv_add_cart"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
@@ -306,6 +304,7 @@
             android:textSize="@dimen/dimen_15sp" />
 
         <TextView
+            android:id="@+id/tv_buy"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"

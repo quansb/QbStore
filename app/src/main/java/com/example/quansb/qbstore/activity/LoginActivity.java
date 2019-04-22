@@ -16,6 +16,7 @@ import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.Logger;
 import com.example.quansb.qbstore.util.PreferencesHelp;
 import com.mysdk.okhttp.listener.DisposeDataListener;
+import com.mysdk.util.StatusBarUtil;
 import com.mysdk.util.StringUtils;
 import com.mysdk.view.CircleImageView;
 
@@ -41,7 +42,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initData() {
-
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.color_white),0);
 
     }
 
@@ -51,6 +52,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         preferencesHelp.put("isLogin", bool);
         preferencesHelp.putObject("userinfo",userInfo);
         preferencesHelp.putString("user_id",userInfo.getUser_id());
+        preferencesHelp.putString("has_pwd",userInfo.getHas_pwd());
         JumpActivityUtil.goToHomeActivity(LoginActivity.this);
 
         finish();

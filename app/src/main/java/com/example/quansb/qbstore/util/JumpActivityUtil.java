@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Parcelable;
 
 import com.example.quansb.qbstore.activity.AboutActivity;
 import com.example.quansb.qbstore.activity.AddressManagementActivity;
@@ -19,14 +20,18 @@ import com.example.quansb.qbstore.activity.OrderActivity;
 import com.example.quansb.qbstore.activity.PaymentActivity;
 import com.example.quansb.qbstore.activity.PersonalInformationActivity;
 import com.example.quansb.qbstore.activity.RegisterActivity;
+import com.example.quansb.qbstore.activity.SelectAddressActivity;
 import com.example.quansb.qbstore.activity.SettingActivity;
 import com.example.quansb.qbstore.activity.TakeBackGoodsActivity;
 import com.example.quansb.qbstore.activity.homebanner.BannerJumpActivity;
+import com.example.quansb.qbstore.activity.homegoodspay.ConfirmAnOrderActivity;
 import com.example.quansb.qbstore.activity.homeshopping.ReadyToSettle;
+import com.example.quansb.qbstore.entity.GoodsInfo;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static com.example.quansb.qbstore.util.Constant.ADDRESS_REQUEST_CODE;
 import static com.example.quansb.qbstore.util.Constant.INFO_REQUEST_CODE;
 
 /**
@@ -130,9 +135,40 @@ public class JumpActivityUtil {
         }
     }
 
-    public static void goToReadyToSettle(Context context){
-        Intent intent=new Intent(context,ReadyToSettle.class);       // 跳转到修改头像界面
+    public static void goToReadyToSettle(Context context, String goods_id){
+        Intent intent=new Intent(context,ReadyToSettle.class);          //商品详情
+        intent.putExtra("goods_id",goods_id);
         context.startActivity(intent);
+    }
+
+
+
+    public static void goToConfirmAnOrderActivity(Context context ){
+        Intent intent=new Intent(context,ConfirmAnOrderActivity.class);
+        context.startActivity(intent);
+    }
+
+    public static void goToConfirmAnOrderActivity(Context context,String cart_goods_id ){     //购物车多个商品跳转
+        Intent intent=new Intent(context,ConfirmAnOrderActivity.class);
+        intent.putExtra("num","1");
+        intent.putExtra("cart_goods_id",cart_goods_id);
+        context.startActivity(intent);
+    }
+
+
+    public static void goToConfirmAnOrderActivity(Context context,GoodsInfo goodsInfo ,String goodsId,String color,String size){    //单个商品跳转
+        Intent intent=new Intent(context,ConfirmAnOrderActivity.class);
+        intent.putExtra("num","0");
+        intent.putExtra("color",color);
+        intent.putExtra("size",size);
+        intent.putExtra("goodsId",goodsId);
+        context.startActivity(intent);
+    }
+
+    public static void goToSelectAddressActivity(Activity activity){
+        Intent intent=new Intent(activity,SelectAddressActivity.class);
+        intent.putExtra("select_address",1);
+        activity.startActivityForResult(intent,ADDRESS_REQUEST_CODE);
     }
 
 }

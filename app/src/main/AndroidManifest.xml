@@ -36,36 +36,26 @@
 
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
-            android:launchMode="singleTask">
-
+            android:name=".activity.LoginActivity">
         </activity>
         <activity android:name=".activity.SettingActivity"
-            android:launchMode="singleTask"
             >
         </activity>
         <activity android:name=".activity.RegisterActivity"
-            android:launchMode="singleTask"
             >
         </activity>
         <activity android:name=".activity.OrderActivity"
-            android:launchMode="singleTask"
             >
         </activity>
         <activity android:name=".activity.EvaluationActivity"
-            android:launchMode="singleTask"
             />
         <activity android:name=".activity.TakeBackGoodsActivity"
-            android:launchMode="singleTask"
             />
         <activity android:name=".activity.AfterSalesActivity"
-            android:launchMode="singleTask"
             />
         <activity android:name=".activity.DeliverGoodsActivity"
-
-            android:launchMode="singleTask"/>
-        <activity android:name=".activity.PaymentActivity"
-            android:launchMode="singleTask"/>
+            />
+        <activity android:name=".activity.PaymentActivity" />
         <activity android:name=".activity.PersonalInformationActivity" />
         <activity android:name=".activity.AddressManagementActivity" />
         <activity android:name=".activity.AboutActivity" />
@@ -74,6 +64,8 @@
         <activity android:name=".activity.ModifyHeadPictureActivity" />
         <activity android:name=".activity.homebanner.BannerJumpActivity" />
         <activity android:name=".activity.homeshopping.ReadyToSettle" />
+        <activity android:name=".activity.homegoodspay.ConfirmAnOrderActivity" />
+        <activity android:name=".activity.SelectAddressActivity" />
 
     </application>
 

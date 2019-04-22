@@ -14,22 +14,25 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="@dimen/dimen_15dp"
         >
         <TextView
+            android:gravity="center_vertical"
             android:layout_centerVertical="true"
             android:id="@+id/tv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_back"
             android:text="@string/common"
-            android:textSize="@dimen/dimen_18sp"
+            android:textSize="@dimen/dimen_15sp"
             android:textColor="@color/color_000000"
             android:layout_marginLeft="@dimen/dimen_8dp"
             android:drawablePadding="@dimen/dimen_8dp"
             />
 
         <TextView
+            android:gravity="center"
             android:id="@+id/tv_common_centre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,8 +60,7 @@
         android:id="@+id/v_common_line"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_1dp"
-        android:background="@color/color_cdcdcd"
-        android:layout_marginTop="@dimen/dimen_10dp"
+        android:background="@color/color_f7f7f7"
         />
     </LinearLayout>
 

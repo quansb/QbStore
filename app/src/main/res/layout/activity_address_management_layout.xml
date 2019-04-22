@@ -3,11 +3,48 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:background="@color/color_white">
+    android:orientation="vertical"
+    >
     <include layout="@layout/common_top_layout">
     </include>
 
+    <LinearLayout
+        android:layout_below="@+id/common_top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fafafa"
+        android:orientation="vertical"
+
+        >
+        <ListView
+            android:id="@+id/lv_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="@dimen/dimen_1dp"
+            android:divider="#eeeeee"
+            android:layout_marginBottom="@dimen/dimen_45dp"
+            >
+        </ListView>
+
+    </LinearLayout>
+
+
+
+   <LinearLayout
+       android:layout_alignParentBottom="true"
+       android:layout_width="match_parent"
+       android:layout_height="45dp"
+       android:background="@color/color_T_mall_theme"
+       >
+       <TextView
+           android:gravity="center"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:text="新增收货地址"
+           android:textColor="@color/color_white"
+           android:textSize="@dimen/dimen_15sp"
+           />
+   </LinearLayout>
 
 
 

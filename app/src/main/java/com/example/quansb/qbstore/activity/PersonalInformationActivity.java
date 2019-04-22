@@ -348,16 +348,17 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
      */
     private void showSingDialog() {
         final String[] items = {"男", "女", "保密"};
-        AlertDialog.Builder Dialog = new AlertDialog.Builder(PersonalInformationActivity.this);
-        Dialog.setTitle(R.string.change_sex);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(R.string.change_sex);
+
         //第二个参数是默认的选项
-        Dialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
+        dialog.setSingleChoiceItems(items, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 choice = which;
             }
         });
-        Dialog.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
+        dialog.setPositiveButton(R.string.confirm, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 if (choice != -1) {
@@ -377,12 +378,12 @@ public class PersonalInformationActivity extends BaseActivity implements View.On
                 choice = 0;
             }
         });
-        Dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+        dialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
             }
         });
-        Dialog.show();
+        dialog.show();
     }
 
 

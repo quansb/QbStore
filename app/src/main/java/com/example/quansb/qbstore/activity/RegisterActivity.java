@@ -14,6 +14,7 @@ import com.example.quansb.qbstore.view.CommonDialog;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
 import com.example.quansb.qbstore.util.Logger;
 import com.mysdk.okhttp.listener.DisposeDataListener;
+import com.mysdk.util.StatusBarUtil;
 import com.mysdk.util.StringUtils;
 import com.mysdk.view.CircleImageView;
 
@@ -41,6 +42,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
 
         tvRegister.setVisibility(tvRegister.GONE);
         tvLoginRegister.setText(R.string.register);
+        StatusBarUtil.setColor(this,getResources().getColor(R.color.color_white),0);
     }
 
     @Override
