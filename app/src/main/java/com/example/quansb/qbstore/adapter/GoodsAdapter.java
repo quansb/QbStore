@@ -65,7 +65,7 @@ public class GoodsAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 PreferencesHelp help=new PreferencesHelp(mcontent);
                 help.getUserID();
-                if(help.getUserID()==null){
+                if(help.getUserID()==null||"".equals(help.getUserID())){
                      JumpActivityUtil.goToLoginActivity(mcontent);
                     LoggerUtil.showToastShort(mcontent,"登录帐号可以获取更多的信息哦");
                 }else {

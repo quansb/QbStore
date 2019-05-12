@@ -35,6 +35,7 @@
        android:layout_width="match_parent"
        android:layout_height="45dp"
        android:background="@color/color_T_mall_theme"
+       android:id="@+id/ll_add_address"
        >
        <TextView
            android:gravity="center"

@@ -1,8 +1,13 @@
 package com.example.quansb.qbstore.view;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +16,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.quansb.qbstore.R;
+import com.example.quansb.qbstore.base.BaseActivity;
+import com.example.quansb.qbstore.base.WrHandler;
 import com.example.quansb.qbstore.entity.BaseDataEntity;
 import com.example.quansb.qbstore.entity.GoodsInfo;
 import com.example.quansb.qbstore.network.RequestCenter;
 import com.example.quansb.qbstore.util.PreferencesHelp;
 import com.mysdk.logger.LoggerUtil;
 import com.mysdk.okhttp.listener.DisposeDataListener;
+
+import java.lang.ref.WeakReference;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -62,11 +71,19 @@ public class PassWordDialog extends BottomDialog {
     private int add = 0;
     private Context mContext;
     private StringBuffer buffer = new StringBuffer();
-    private boolean flag=false;   //true 第二次确认密码  false 第一次确认密码
+    private boolean flag = false;   //true 第二次确认密码  false 第一次确认密码
     private String firstWord;
     private String lastWord;
     private String allPrice;
     private String goodsID;
+    private Activity activity;
+    private WrHandler wrHandler;
+    private Handler.Callback callback;
+    private MyHandler myHandler;
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
 
     public void setAllPrice(String allPrice) {
         this.allPrice = allPrice;
@@ -83,7 +100,6 @@ public class PassWordDialog extends BottomDialog {
     }
 
 
-
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container) {
         View view = inflater.inflate(R.layout.dialog_payment_settings_layout, container, false);
@@ -96,13 +112,14 @@ public class PassWordDialog extends BottomDialog {
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         initData();
-        toGetPassWord();
+        // toGetPassWord();
         return rootView;
     }
 
     private void initData() {
 
         tvBack.setText("");
+        assert getTag() != null;
         if (getTag().equals("has_pwd")) {
             tvCommonCentre.setText("请输入支付密码");
         } else if (getTag().equals("set_pwd")) {
@@ -112,11 +129,21 @@ public class PassWordDialog extends BottomDialog {
         myPwdView.setLineColor(getResources().getColor(R.color.color_cbcbcb));
         myPwdView.setPassWordNum(passWordSum);
         myPwdView.setContext(mContext);
+        myHandler = new MyHandler(activity);
     }
 
+
     private void toGetPassWord() {
-
-
+        callback = new Handler.Callback() {
+            @Override
+            public boolean handleMessage(Message msg) {
+                if (msg.what == 0x11) {
+                    reSet();
+                }
+                return true;
+            }
+        };
+        wrHandler = new WrHandler(callback);
     }
 
     @Override
@@ -191,35 +218,44 @@ public class PassWordDialog extends BottomDialog {
                 buffer = buffer.append(0);
                 break;
             case R.id.tv_delete:
-                if (buffer.length() > 0) {
-                    buffer.delete(buffer.length() - 1, buffer.length());
-                }
                 if (add > 0) {
                     myPwdView.addCircle(--add);
+                }
+                if (buffer.length() > 0) {
+                    buffer.delete(buffer.length() - 1, buffer.length());
                 }
                 break;
         }
 
+
+        //消息处理 handler
+        if (buffer.length() == 6) {
+            myHandler.sendEmptyMessageDelayed(0x11, 500);
+        }
+    }
+
+
+    private void reSet() {
         if (buffer.length() == 6) {
             passWord = buffer.toString();
-            if (getTag().equals("has_pwd")) {
+            assert getTag() != null;
+            if (getTag().equals("has_pwd")) {     //有支付密码 就支付
                 payGoodsMoney();
-            }
-            else if (getTag().equals("set_pwd")){
-                if(!flag){
-                    firstWord=passWord;
+            } else if (getTag().equals("set_pwd")) {     //没有支付密码 设置支付密码
+                if (!flag) {                                 //第一次输入密码
+                    firstWord = passWord;
                     tvCommonCentre.setText("再次确认密码");
                     myPwdView.addCircle(0);
-                    add=0;
-                    buffer.delete(0,buffer.length());
-                    flag=true;
-                }else {
-                    lastWord=passWord;
-                    if(lastWord.equals(firstWord)){
+                    add = 0;
+                    buffer.delete(0, buffer.length());
+                    flag = true;
+                } else {                                       //第二次输入密码
+                    lastWord = passWord;
+                    if (lastWord.equals(firstWord)) {        //两次输入密码一致    发送网络请求
                         setPayPassWord();
-                        flag=false;
-                    }else {
-                        Toast.makeText(mContext,"两次输入的密码不一致",Toast.LENGTH_SHORT).show();
+                        flag = false;
+                    } else {                         //如果两次输入密码不一致
+                        Toast.makeText(mContext, "两次输入的密码不一致", Toast.LENGTH_SHORT).show();
                         dismiss();
                     }
                 }
@@ -234,11 +270,14 @@ public class PassWordDialog extends BottomDialog {
                 BaseDataEntity baseDataEntity = (BaseDataEntity) object;
                 if (Integer.valueOf(baseDataEntity.getStatus()) > 0) {
                     LoggerUtil.showToastShort(mContext, baseDataEntity.getMsg());
+                    PreferencesHelp help=new PreferencesHelp(mContext);
+                    help.putString("has_pwd","1");
                     dismiss();
                 } else {
                     LoggerUtil.showToastShort(mContext, baseDataEntity.getMsg());
                 }
             }
+
             @Override
             public void onFailure(Object object) {
 
@@ -247,20 +286,42 @@ public class PassWordDialog extends BottomDialog {
     }
 
     private void payGoodsMoney() {
-        RequestCenter.toPayGoodsMoney(help.getUserID(),goodsID, allPrice, passWord, new DisposeDataListener() {
+        RequestCenter.toPayGoodsMoney(help.getUserID(), goodsID, allPrice, passWord, new DisposeDataListener() {
             @Override
             public void onSuccess(Object object) {
-                BaseDataEntity baseDataEntity= (BaseDataEntity) object;
-                if(Integer.valueOf(baseDataEntity.getStatus())>0){
+                BaseDataEntity baseDataEntity = (BaseDataEntity) object;
+                if (Integer.valueOf(baseDataEntity.getStatus()) > 0) {
                     LoggerUtil.showToastShort(mContext, baseDataEntity.getMsg());
                     dismiss();
-                }else {
+                } else {
                     LoggerUtil.showToastShort(mContext, baseDataEntity.getMsg());
+                    myPwdView.addCircle(0);
+                    add = 0;
+                    buffer.delete(0, buffer.length());
                 }
             }
+
             @Override
             public void onFailure(Object object) {
             }
         }, BaseDataEntity.class);
     }
+
+    class MyHandler extends Handler {
+        WeakReference<Activity> weakReference;
+        MyHandler(Activity activity) {
+            weakReference = new WeakReference<Activity>(activity);
+        }
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (weakReference.get() != null) {
+                if (msg.what == 0x11) {
+                    reSet();
+                }
+            }
+        }
+    }
+
+
 }

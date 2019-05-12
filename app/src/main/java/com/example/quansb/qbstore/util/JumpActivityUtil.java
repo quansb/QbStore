@@ -23,6 +23,7 @@ import com.example.quansb.qbstore.activity.RegisterActivity;
 import com.example.quansb.qbstore.activity.SelectAddressActivity;
 import com.example.quansb.qbstore.activity.SettingActivity;
 import com.example.quansb.qbstore.activity.TakeBackGoodsActivity;
+import com.example.quansb.qbstore.activity.addaddress.AddAddressActivity;
 import com.example.quansb.qbstore.activity.homebanner.BannerJumpActivity;
 import com.example.quansb.qbstore.activity.homegoodspay.ConfirmAnOrderActivity;
 import com.example.quansb.qbstore.activity.homeshopping.ReadyToSettle;
@@ -170,5 +171,11 @@ public class JumpActivityUtil {
         intent.putExtra("select_address",1);
         activity.startActivityForResult(intent,ADDRESS_REQUEST_CODE);
     }
+
+    public static void goToAddAddressActivity(Context context){
+        Intent intent=new Intent(context,AddAddressActivity.class);       // 跳转到修改年龄界面
+        context.startActivity(intent);
+    }
+
 
 }

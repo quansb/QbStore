@@ -82,7 +82,44 @@ public class AddressAdapter extends BaseAdapter {
                 toSetDefaultAddress(addressEntity, i);
             }
         });
+
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toDeleteAddress(addressEntity,i);
+            }
+        });
+
+
+
         return view;
+    }
+
+    private void toDeleteAddress(final AddressEntity addressEntity, final int i) {
+        PreferencesHelp help = new PreferencesHelp(context);
+        String user_id = help.getUserID();
+        if(addressEntity.getAddress_id()!=null||"".equals(addressEntity.getAddress_id())){
+            RequestCenter.toDeleteAddress(user_id, addressEntity.getAddress_id(), new DisposeDataListener() {
+                @Override
+                public void onSuccess(Object object) {
+                    BaseDataEntity baseDataEntity= (BaseDataEntity) object;
+                    if (Integer.valueOf(baseDataEntity.getStatus()) > 0) {
+                 //       toUpdateUI(addressEntity,i);
+                        if (listener != null) {
+                            listener.onClick(addressEntity);
+                        }
+                    } else {
+                        LoggerUtil.showToastShort(context, baseDataEntity.getMsg());
+                    }
+                }
+
+                @Override
+                public void onFailure(Object object) {
+
+                }
+            },BaseDataEntity.class);
+        }
+
     }
 
 

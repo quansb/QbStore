@@ -3,8 +3,8 @@ package com.example.quansb.qbstore.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -24,7 +24,6 @@ import com.mysdk.okhttp.listener.DisposeDataListener;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -39,13 +38,16 @@ public class SelectAddressActivity extends BaseActivity implements View.OnClickL
     TextView tvCommonRight;
     @Bind(R.id.lv_list_view)
     ListView lvListView;
-    private Context context=this;
+    @Bind(R.id.ll_add_address)
+    LinearLayout llAddAddress;
+    private Context context = this;
     private AddressInfo addressInfo;
-    private SelectAddressAdapter selectAddressAdapter =new SelectAddressAdapter(context);
-    private EventBus eventBus=new EventBus();
+    private SelectAddressAdapter selectAddressAdapter = new SelectAddressAdapter(context);
+    private EventBus eventBus = new EventBus();
+
     @Override
     protected void initData() {
-
+        llAddAddress.setOnClickListener(this);
         tvCommonCentre.setVisibility(View.GONE);
         tvBack.setOnClickListener(this);
         tvCommonRight.setVisibility(View.VISIBLE);
@@ -73,6 +75,7 @@ public class SelectAddressActivity extends BaseActivity implements View.OnClickL
                     LoggerUtil.showToastShort(context, addressInfo.getMsg());
                 }
             }
+
             @Override
             public void onFailure(Object object) {
                 Logger.showToastShort(getString(R.string.net_exception));
@@ -81,12 +84,12 @@ public class SelectAddressActivity extends BaseActivity implements View.OnClickL
 
         selectAddressAdapter.setOnOnClickListener(new SelectAddressAdapter.OnClickListener() {
             @Override
-            public void onClick(AddressEntity address,int position) {
-                Intent intent=new Intent();
-                intent.putExtra("name",address.getConsignee());
-                intent.putExtra("phone",address.getPhone());
-                intent.putExtra("address",address.getAddress());
-                setResult(1,intent);
+            public void onClick(AddressEntity address, int position) {
+                Intent intent = new Intent();
+                intent.putExtra("name", address.getConsignee());
+                intent.putExtra("phone", address.getPhone());
+                intent.putExtra("address", address.getAddress());
+                setResult(1, intent);
                 selectAddressAdapter.notifyDataSetChanged();
                 finish();
             }
@@ -94,10 +97,7 @@ public class SelectAddressActivity extends BaseActivity implements View.OnClickL
     }
 
 
-
-
-
-    private void toGetAddress(){
+    private void toGetAddress() {
         ArrayList<AddressEntity> arrayList = addressInfo.getList();
         selectAddressAdapter.setData(arrayList);
         lvListView.setAdapter(selectAddressAdapter);
@@ -114,12 +114,12 @@ public class SelectAddressActivity extends BaseActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
-      EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this);
     }
 
     @Subscribe
     public void onEvent(Event event) {
-        if(event.isUpDateAddress()){
+        if (event.isUpDateAddress()) {
             toGetData();
         }
     }
@@ -128,17 +128,20 @@ public class SelectAddressActivity extends BaseActivity implements View.OnClickL
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tv_back:
                 finish();
                 break;
             case R.id.tv_common_right:
                 JumpActivityUtil.goToAddressManagementActivity(context);
+                break;
+            case R.id.ll_add_address:
+                JumpActivityUtil.goToAddAddressActivity(context);
                 break;
         }
     }

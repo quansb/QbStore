@@ -1,9 +1,11 @@
 package com.example.quansb.qbstore.activity.homegoodspay;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -13,10 +15,8 @@ import com.example.quansb.qbstore.R;
 import com.example.quansb.qbstore.adapter.ConfirmOrderAdapter;
 import com.example.quansb.qbstore.base.BaseActivity;
 import com.example.quansb.qbstore.entity.AddressEntity;
-import com.example.quansb.qbstore.entity.BaseDataEntity;
 import com.example.quansb.qbstore.entity.ConfirmOrderEntity;
 import com.example.quansb.qbstore.entity.GoodsEntity;
-import com.example.quansb.qbstore.entity.GoodsInfo;
 import com.example.quansb.qbstore.network.RequestCenter;
 import com.example.quansb.qbstore.util.Constant;
 import com.example.quansb.qbstore.util.JumpActivityUtil;
@@ -26,7 +26,6 @@ import com.mysdk.logger.LoggerUtil;
 import com.mysdk.okhttp.listener.DisposeDataListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -58,7 +57,8 @@ public class ConfirmAnOrderActivity extends BaseActivity implements View.OnClick
     private String goodsID;   //    支付结算商品id
     private String totalGoodsId; //  购物车商品所有id
     private String user_id;
-    private   ConfirmOrderAdapter adapter;
+    private ConfirmOrderAdapter adapter;
+    private Activity activity=this;
 
     @Override
     protected void initData() {
@@ -78,20 +78,25 @@ public class ConfirmAnOrderActivity extends BaseActivity implements View.OnClick
     protected void initView() {
 
         if (getIntent().getStringExtra("num").equals("1")) {
-            totalGoodsId=getIntent().getStringExtra("cart_goods_id");
-            goodsID=totalGoodsId;
+            totalGoodsId = getIntent().getStringExtra("cart_goods_id");
+            goodsID = totalGoodsId;
             RequestCenter.toGetConfirmOrderFromCart(user_id, totalGoodsId, "2", new DisposeDataListener() {
                 @Override
                 public void onSuccess(Object object) {
                     ConfirmOrderEntity confirmOrderEntity = (ConfirmOrderEntity) object;
                     if (Integer.valueOf(confirmOrderEntity.getStatus()) > 0) {
-                        toShowAddress(confirmOrderEntity.getAddressEntity());
+                        if (confirmOrderEntity.getAddressEntity() != null) {
+                            toShowAddress(confirmOrderEntity.getAddressEntity());
+                        } else {
+                            toShowDefaultAddress();
+                        }
                         toShowGoodsFromCart(confirmOrderEntity.getGoodsEntities());
                         toShowTotalPrice(confirmOrderEntity.getTotalPrice());
                     } else {
-                        LoggerUtil.showToastShort(context,confirmOrderEntity.getMsg());
+                        LoggerUtil.showToastShort(context, confirmOrderEntity.getMsg());
                     }
                 }
+
                 @Override
                 public void onFailure(Object object) {
 
@@ -99,20 +104,24 @@ public class ConfirmAnOrderActivity extends BaseActivity implements View.OnClick
             }, ConfirmOrderEntity.class);
 
         } else if (getIntent().getStringExtra("num").equals("0")) {
-            String goodsId=getIntent().getStringExtra("goodsId");
-            String color=getIntent().getStringExtra("color");
-            String size=getIntent().getStringExtra("size");
-            goodsID=goodsId;
+            String goodsId = getIntent().getStringExtra("goodsId");
+            String color = getIntent().getStringExtra("color");
+            String size = getIntent().getStringExtra("size");
+            goodsID = goodsId;
             RequestCenter.toGetOneConfirmOrder(user_id, goodsId, "1", size, color, new DisposeDataListener() {
                 @Override
                 public void onSuccess(Object object) {
                     ConfirmOrderEntity confirmOrderEntity = (ConfirmOrderEntity) object;
                     if (Integer.valueOf(confirmOrderEntity.getStatus()) > 0) {
-                        toShowAddress(confirmOrderEntity.getAddressEntity());
+                        if (confirmOrderEntity.getAddressEntity() != null) {
+                            toShowAddress(confirmOrderEntity.getAddressEntity());
+                        } else {
+                            toShowDefaultAddress();
+                        }
                         toShowGoodsFromCart(confirmOrderEntity.getGoodsEntities());
                         toShowTotalPrice(confirmOrderEntity.getTotalPrice());
                     } else {
-                        LoggerUtil.showToastShort(context,confirmOrderEntity.getMsg());
+                        LoggerUtil.showToastShort(context, confirmOrderEntity.getMsg());
                     }
                 }
 
@@ -120,10 +129,14 @@ public class ConfirmAnOrderActivity extends BaseActivity implements View.OnClick
                 public void onFailure(Object object) {
 
                 }
-            },ConfirmOrderEntity.class);
+            }, ConfirmOrderEntity.class);
         }
+    }
 
-
+    private void toShowDefaultAddress() {
+        tvName.setText("请设置收件人");
+        tvAddress.setText("请设置收货地址");
+        tvPhone.setText("请设置手机号");
     }
 
     private void toShowTotalPrice(String totalPrice) {
@@ -131,16 +144,16 @@ public class ConfirmAnOrderActivity extends BaseActivity implements View.OnClick
     }
 
     private void toShowGoodsFromCart(ArrayList<GoodsEntity> goodsEntities) {
-                adapter.setGoodsList(goodsEntities);
-                adapter.notifyDataSetChanged();
-                tvGoodsSum.setText("共"+goodsEntities.size()+"件,总金额");
+        adapter.setGoodsList(goodsEntities);
+        adapter.notifyDataSetChanged();
+        tvGoodsSum.setText("共" + goodsEntities.size() + "件,总金额");
     }
 
 
     private void toShowAddress(AddressEntity addressEntity) {
         tvName.setText(addressEntity.getConsignee());
-        tvPhone.setText(addressEntity.getPhone());
         tvAddress.setText(addressEntity.getAddress());
+        tvPhone.setText(addressEntity.getPhone());
     }
 
     @Override
@@ -166,8 +179,9 @@ public class ConfirmAnOrderActivity extends BaseActivity implements View.OnClick
                 String payPassWord = help.getUserHasPwd();
                 PassWordDialog dialog = new PassWordDialog();
                 dialog.setmContext(context);
-                dialog.setAllPrice(tvMoneySum.getText()+"");
+                dialog.setAllPrice(tvMoneySum.getText() + "");
                 dialog.setGoodsID(goodsID);
+                dialog.setActivity(activity);
                 if (payPassWord.equals("1")) {
                     dialog.show(getSupportFragmentManager(), "has_pwd");  //有支付密码直接输入支付密码
                 } else {

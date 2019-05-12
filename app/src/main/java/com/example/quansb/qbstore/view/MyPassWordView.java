@@ -87,8 +87,8 @@ public class MyPassWordView extends View {
             drawCircle(circleSum,canvas);
     }
 
-    private void drawCircle(int num,Canvas canvas) {
-        for(int i=0;i<num;i++){
+    private void drawCircle(int circleSum,Canvas canvas) {
+        for(int i=0;i<circleSum;i++){
         canvas.drawCircle(leftMargin+(itemWidth*i+itemWidth/2),viewHeight/2+topMargin, circleRadius, circlePaint);
         }
     }

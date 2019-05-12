@@ -7,14 +7,6 @@ public class ConfirmOrderEntity extends BaseDataEntity {
     private ArrayList<GoodsEntity> goodsEntities;
     private String totalPrice;
 
-    public ArrayList<GoodsEntity> getGoodsEntities() {
-        return goodsEntities;
-    }
-
-    public void setGoodsEntities(ArrayList<GoodsEntity> goodsEntities) {
-        this.goodsEntities = goodsEntities;
-    }
-
     public AddressEntity getAddressEntity() {
         return addressEntity;
     }
@@ -23,8 +15,19 @@ public class ConfirmOrderEntity extends BaseDataEntity {
         this.addressEntity = addressEntity;
     }
 
+    public ArrayList<GoodsEntity> getGoodsEntities() {
+        if (goodsEntities == null) {
+            return new ArrayList<>();
+        }
+        return goodsEntities;
+    }
+
+    public void setGoodsEntities(ArrayList<GoodsEntity> goodsEntities) {
+        this.goodsEntities = goodsEntities;
+    }
+
     public String getTotalPrice() {
-        return totalPrice;
+        return totalPrice == null ? "" : totalPrice;
     }
 
     public void setTotalPrice(String totalPrice) {

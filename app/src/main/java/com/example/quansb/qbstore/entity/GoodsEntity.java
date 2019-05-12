@@ -50,16 +50,8 @@ public class GoodsEntity  {
         this.is_choose = is_choose;
     }
 
-    public String getGoods_status() {
-        return goods_status;
-    }
-
-    public void setGoods_status(String goods_status) {
-        this.goods_status = goods_status;
-    }
-
     public String getGoods_colors() {
-        return goods_colors;
+        return goods_colors == null ? "" : goods_colors;
     }
 
     public void setGoods_colors(String goods_colors) {
@@ -67,14 +59,22 @@ public class GoodsEntity  {
     }
 
     public String getGoods_size() {
-        return goods_size;
+        return goods_size == null ? "" : goods_size;
     }
 
     public void setGoods_size(String goods_size) {
         this.goods_size = goods_size;
     }
 
-    public GoodsEntity(String goods_url, String goods_des, String goods_price, String goods_id,String goods_colors,String goods_size ) {
+    public String getGoods_status() {
+        return goods_status == null ? "" : goods_status;
+    }
+
+    public void setGoods_status(String goods_status) {
+        this.goods_status = goods_status;
+    }
+
+    public GoodsEntity(String goods_url, String goods_des, String goods_price, String goods_id, String goods_colors, String goods_size ) {
         this.goods_url=goods_url;
         this.goods_des=goods_des;
         this.goods_id=goods_id;
@@ -93,7 +93,7 @@ public class GoodsEntity  {
     }
 
     public String getGoods_des() {
-        return goods_des;
+        return goods_des == null ? "" : goods_des;
     }
 
     public void setGoods_des(String goods_des) {
@@ -101,7 +101,7 @@ public class GoodsEntity  {
     }
 
     public String getGoods_price() {
-        return goods_price;
+        return goods_price == null ? "" : goods_price;
     }
 
     public void setGoods_price(String goods_price) {
@@ -109,13 +109,10 @@ public class GoodsEntity  {
     }
 
     public String getGoods_id() {
-        return goods_id;
+        return goods_id == null ? "" : goods_id;
     }
 
     public void setGoods_id(String goods_id) {
         this.goods_id = goods_id;
     }
-
-
-
 }

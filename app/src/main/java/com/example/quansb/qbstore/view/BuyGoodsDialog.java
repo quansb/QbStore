@@ -71,13 +71,13 @@ public class BuyGoodsDialog extends BottomDialog {
     private Context context;
     private String userId;
     private String goodsId;
-    private  SpecificationsEntity specificationsEntity;
-    private List<TextView> tvColorList=new ArrayList<>();
-    private List<TextView> tvSizeList=new ArrayList<>();
-    private int colorPrevious=0;
-    private int sizePrevious=0;
-    private boolean isClickColor=false;
-    private boolean isClickSize=false;
+    private SpecificationsEntity specificationsEntity;
+    private List<TextView> tvColorList = new ArrayList<>();
+    private List<TextView> tvSizeList = new ArrayList<>();
+    private int colorPrevious = 0;
+    private int sizePrevious = 0;
+    private boolean isClickColor = false;
+    private boolean isClickSize = false;
     private String goods_color;
     private String goods_size;
 
@@ -118,12 +118,15 @@ public class BuyGoodsDialog extends BottomDialog {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
-
-        PreferencesHelp help=new PreferencesHelp(context);
-        userId=help.getUserID();
-        ImageLoader.getInstance().loadImageView(context,goodsInfo.getGoodsEntity().getGoods_url(),imGoodsImage,false);
+        PreferencesHelp help = new PreferencesHelp(context);
+        userId = help.getUserID();
+        if(goodsInfo!=null&&goodsInfo.getGoodsEntity()!=null&&goodsInfo.getGoodsEntity().getGoods_url()!=null) {
+            ImageLoader.getInstance().loadImageView(context, goodsInfo.getGoodsEntity().getGoods_url(), imGoodsImage, false);
+        }
+        if(goodsInfo!=null&&goodsInfo.getGoodsEntity()!=null&&goodsInfo.getGoodsEntity().getGoods_price()!=null) {
         tvPrices.setText(goodsInfo.getGoodsEntity().getGoods_price());
-  //      tvResidue.setText("存库"+goodsInfo.getGoodsEntity().getPin()+"件");
+        }
+        //      tvResidue.setText("存库"+goodsInfo.getGoodsEntity().getPin()+"件");
         GetGoodsSpecifications();
         return rootView;
     }
@@ -135,15 +138,16 @@ public class BuyGoodsDialog extends BottomDialog {
         RequestCenter.toGetGoodsSpecifications(userId, goodsId, new DisposeDataListener() {
             @Override
             public void onSuccess(Object object) {
-                specificationsEntity= (SpecificationsEntity) object;
-                if(Integer.valueOf(specificationsEntity.getStatus())>0){
-                    LoggerUtil.showToastShort(context,specificationsEntity.getMsg());
+                specificationsEntity = (SpecificationsEntity) object;
+                if (Integer.valueOf(specificationsEntity.getStatus()) > 0) {
+                //    LoggerUtil.showToastShort(context, specificationsEntity.getMsg());
                     toShowColor();
                     toShowSize();
-                }else {
-                    LoggerUtil.showToastShort(context,specificationsEntity.getMsg());
+                } else {
+                    LoggerUtil.showToastShort(context, specificationsEntity.getMsg());
                 }
             }
+
             @Override
             public void onFailure(Object object) {
                 Toast.makeText(context, R.string.net_exception, Toast.LENGTH_LONG).show();
@@ -155,7 +159,7 @@ public class BuyGoodsDialog extends BottomDialog {
      * 设置尺码的瀑布流格式
      */
     private void toShowSize() {
-        for(int i=0;i<specificationsEntity.getSizes().size();i++){
+        for (int i = 0; i < specificationsEntity.getSizes().size(); i++) {
             final TextView tv = new TextView(context);
             tv.setText(specificationsEntity.getSizes().get(i));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
@@ -170,9 +174,9 @@ public class BuyGoodsDialog extends BottomDialog {
                     tvSizeList.get(sizePrevious).setBackgroundResource(R.drawable.bg_common_size_color_layout);
                     tvSizeList.get(finalI).setTextColor(getResources().getColor(R.color.color_T_mall_theme));
                     tvSizeList.get(finalI).setBackgroundResource(R.drawable.bg_common_size_color_select_layout);
-                      goods_size=  tvSizeList.get(finalI).getText().toString().trim();
-                    sizePrevious= finalI;
-                    isClickSize=true;
+                    goods_size = tvSizeList.get(finalI).getText().toString().trim();
+                    sizePrevious = finalI;
+                    isClickSize = true;
                 }
             });
             flSelectSizeLayout.addView(tv);
@@ -183,7 +187,7 @@ public class BuyGoodsDialog extends BottomDialog {
      * 设置颜色的瀑布流
      */
     private void toShowColor() {
-        for(int i=0;i<specificationsEntity.getColors().size();i++){
+        for (int i = 0; i < specificationsEntity.getColors().size(); i++) {
             final TextView tv = new TextView(context);
             tv.setText(specificationsEntity.getColors().get(i));
             tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
@@ -198,9 +202,9 @@ public class BuyGoodsDialog extends BottomDialog {
                     tvColorList.get(colorPrevious).setBackgroundResource(R.drawable.bg_common_size_color_layout);
                     tvColorList.get(finalI).setTextColor(getResources().getColor(R.color.color_T_mall_theme));
                     tvColorList.get(finalI).setBackgroundResource(R.drawable.bg_common_size_color_select_layout);
-                    goods_color=tvColorList.get(finalI).getText().toString().trim();
-                    colorPrevious= finalI;
-                    isClickColor=true;
+                    goods_color = tvColorList.get(finalI).getText().toString().trim();
+                    colorPrevious = finalI;
+                    isClickColor = true;
                 }
             });
             flSelectColorLayout.addView(tv);
@@ -217,29 +221,26 @@ public class BuyGoodsDialog extends BottomDialog {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_bottom_sure:
-                if(getTag()!=null&&getTag().equals(Constant.BUY_GOODS)){
-                    if(isClickColor&&isClickSize){
-                        JumpActivityUtil.goToConfirmAnOrderActivity(context,goodsInfo,goodsId,goods_color,goods_size);
+                if (getTag() != null && getTag().equals(Constant.BUY_GOODS)) {
+                    if (isClickColor && isClickSize) {
+                        JumpActivityUtil.goToConfirmAnOrderActivity(context, goodsInfo, goodsId, goods_color, goods_size);
                         dismiss();
+                    } else if (isClickSize) {
+                        LoggerUtil.showToastShort(context, "请选择颜色");
+                    } else if (isClickColor) {
+                        LoggerUtil.showToastShort(context, "请选择尺码");
+                    } else if (isClickColor == false && isClickSize == false) {
+                        LoggerUtil.showToastShort(context, "请选择颜色和尺码");
                     }
-                    else if (isClickSize){
-                        LoggerUtil.showToastShort(context,"请选择颜色");
-                    }else if(isClickColor){
-                        LoggerUtil.showToastShort(context,"请选择尺码");
-                    }else if(isClickColor==false&&isClickSize==false){
-                        LoggerUtil.showToastShort(context,"请选择颜色和尺码");
-                    }
-                }
-                else if(getTag()!=null&&getTag().equals(Constant.ADD_CART)){
-                    if(isClickColor&&isClickSize){
+                } else if (getTag() != null && getTag().equals(Constant.ADD_CART)) {
+                    if (isClickColor && isClickSize) {
                         addGoodsToCart();
-                    }
-                    else if (isClickSize){
-                        LoggerUtil.showToastShort(context,"请选择颜色");
-                    }else if(isClickColor){
-                        LoggerUtil.showToastShort(context,"请选择尺码");
-                    }else if(isClickColor==false&&isClickSize==false){
-                        LoggerUtil.showToastShort(context,"请选择颜色和尺码");
+                    } else if (isClickSize) {
+                        LoggerUtil.showToastShort(context, "请选择颜色");
+                    } else if (isClickColor) {
+                        LoggerUtil.showToastShort(context, "请选择尺码");
+                    } else if (isClickColor == false && isClickSize == false) {
+                        LoggerUtil.showToastShort(context, "请选择颜色和尺码");
                     }
                 }
                 break;
@@ -265,13 +266,14 @@ public class BuyGoodsDialog extends BottomDialog {
         RequestCenter.toSetGoodsSpecifications(userId, goodsId, goods_color, goods_size, new DisposeDataListener() {
             @Override
             public void onSuccess(Object object) {
-                BaseDataEntity entity=new BaseDataEntity();
-                if(Integer.valueOf(entity.getStatus())>0){
-                    LoggerUtil.showToastShort(context,entity.getMsg());
-                }else {
-                    LoggerUtil.showToastShort(context,entity.getMsg());
+                BaseDataEntity entity = new BaseDataEntity();
+                if (Integer.valueOf(entity.getStatus()) > 0) {
+                    LoggerUtil.showToastShort(context, entity.getMsg());
+                } else {
+                    LoggerUtil.showToastShort(context, entity.getMsg());
                 }
             }
+
             @Override
             public void onFailure(Object object) {
 
@@ -282,18 +284,19 @@ public class BuyGoodsDialog extends BottomDialog {
         RequestCenter.toAddGoodsToCart(userId, goodsId, new DisposeDataListener() {
             @Override
             public void onSuccess(Object object) {
-                AddressInfo addressInfo= (AddressInfo) object;
-                if(Integer.valueOf(addressInfo.getStatus())>0){
-                    Toast.makeText(context,addressInfo.getMsg(),Toast.LENGTH_SHORT).show();
-                    Event event=new Event();
+                AddressInfo addressInfo = (AddressInfo) object;
+                if (Integer.valueOf(addressInfo.getStatus()) > 0) {
+                    Toast.makeText(context, addressInfo.getMsg(), Toast.LENGTH_SHORT).show();
+                    Event event = new Event();
                     event.setUpDateShoppingCart(true);
                     EventBus.getDefault().post(event);
                     dismiss();
-                }else {
-                    Toast.makeText(context,addressInfo.getMsg(),Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(context, addressInfo.getMsg(), Toast.LENGTH_SHORT).show();
                     dismiss();
                 }
             }
+
             @Override
             public void onFailure(Object object) {
                 Toast.makeText(context, R.string.net_exception, Toast.LENGTH_LONG).show();

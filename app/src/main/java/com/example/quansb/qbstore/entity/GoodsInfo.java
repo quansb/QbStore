@@ -8,22 +8,6 @@ public class GoodsInfo extends BaseDataEntity  {
     private List<String> goods_urls;
     private List <String>goods_detail_urls;
 
-    public List<String> getGoods_detail_urls() {
-        return goods_detail_urls;
-    }
-
-    public void setGoods_detail_urls(List<String> goods_detail_urls) {
-        this.goods_detail_urls = goods_detail_urls;
-    }
-
-    public List<String> getGoods_urls() {
-        return goods_urls;
-    }
-
-    public void setGoods_urls(List<String> goods_urls) {
-        this.goods_urls = goods_urls;
-    }
-
     public GoodsEntity getGoodsEntity() {
         return goodsEntity;
     }
@@ -32,5 +16,25 @@ public class GoodsInfo extends BaseDataEntity  {
         this.goodsEntity = goodsEntity;
     }
 
+    public List<String> getGoods_urls() {
+        if (goods_urls == null) {
+            return new ArrayList<>();
+        }
+        return goods_urls;
+    }
 
+    public void setGoods_urls(List<String> goods_urls) {
+        this.goods_urls = goods_urls;
+    }
+
+    public List<String> getGoods_detail_urls() {
+        if (goods_detail_urls == null) {
+            return new ArrayList<>();
+        }
+        return goods_detail_urls;
+    }
+
+    public void setGoods_detail_urls(List<String> goods_detail_urls) {
+        this.goods_detail_urls = goods_detail_urls;
+    }
 }

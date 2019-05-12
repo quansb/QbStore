@@ -7,17 +7,8 @@ public class AddressEntity {
     private String address_id;
     private String phone;
     private String isChoose="0"; // 0未被选中 1选中
-
-    public String getIsChoose() {
-        return isChoose;
-    }
-
-    public void setIsChoose(String isChoose) {
-        this.isChoose = isChoose;
-    }
-
     public String getConsignee() {
-        return consignee;
+        return consignee == null ? "" : consignee;
     }
 
     public void setConsignee(String consignee) {
@@ -25,7 +16,7 @@ public class AddressEntity {
     }
 
     public String getIs_default() {
-        return is_default;
+        return is_default == null ? "" : is_default;
     }
 
     public void setIs_default(String is_default) {
@@ -33,7 +24,7 @@ public class AddressEntity {
     }
 
     public String getAddress() {
-        return address;
+        return address == null ? "" : address;
     }
 
     public void setAddress(String address) {
@@ -41,7 +32,7 @@ public class AddressEntity {
     }
 
     public String getAddress_id() {
-        return address_id;
+        return address_id == null ? "" : address_id;
     }
 
     public void setAddress_id(String address_id) {
@@ -49,10 +40,18 @@ public class AddressEntity {
     }
 
     public String getPhone() {
-        return phone;
+        return phone == null ? "" : phone;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getIsChoose() {
+        return isChoose == null ? "" : isChoose;
+    }
+
+    public void setIsChoose(String isChoose) {
+        this.isChoose = isChoose;
     }
 }

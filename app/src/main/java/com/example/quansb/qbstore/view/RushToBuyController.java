@@ -80,22 +80,29 @@ public class RushToBuyController   {
             viewHolder.imLeftImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  //  toGetGoodsDetail(index );
+                    if(list!=null&&list.get(index)!=null&&list.get(index).getGoods_id()!=null)
+                 toGetLeftGoodsDetail(index );
                 }
             });
 
             viewHolder.imRightImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if(list!=null&&list.get(index)!=null&&list.get(index).getGoods1_id()!=null)
+                    toGetRightGoodsDetail(index);
                 }
             });
 
     }
 
-    private void toGetGoodsDetail(int i) {
-        PreferencesHelp help=new PreferencesHelp(mContext);
+    private void toGetLeftGoodsDetail(int i) {
+
         JumpActivityUtil.goToReadyToSettle(mContext,list.get(i).getGoods_id());
+    }
+
+    private void toGetRightGoodsDetail(int i) {
+
+        JumpActivityUtil.goToReadyToSettle(mContext,list.get(i).getGoods1_id());
     }
 
 

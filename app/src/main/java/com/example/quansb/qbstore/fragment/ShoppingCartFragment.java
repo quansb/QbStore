@@ -185,7 +185,7 @@ public class ShoppingCartFragment extends BaseFragment implements View.OnClickLi
                 upDateImageColor();
                 break;
             case R.id.ll_goods_sum_layout:
-                if (!totalGoodsId.equals("")) {
+                if (totalGoodsId!=null&&!totalGoodsId.equals("")) {
                     JumpActivityUtil.goToConfirmAnOrderActivity(context, totalGoodsId);
                 } else {
                     Toast.makeText(context, "请选择要购买的商品", Toast.LENGTH_SHORT).show();

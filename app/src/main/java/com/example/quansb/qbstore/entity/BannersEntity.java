@@ -23,7 +23,7 @@ public class BannersEntity extends BaseDataEntity {
         private String banner_jump_url;
 
         public String getBanner_url() {
-            return banner_url;
+            return banner_url == null ? "" : banner_url;
         }
 
         public void setBanner_url(String banner_url) {
@@ -31,7 +31,7 @@ public class BannersEntity extends BaseDataEntity {
         }
 
         public String getBanner_color() {
-            return banner_color;
+            return banner_color == null ? "" : banner_color;
         }
 
         public void setBanner_color(String banner_color) {
@@ -39,7 +39,7 @@ public class BannersEntity extends BaseDataEntity {
         }
 
         public String getBanner_jump_url() {
-            return banner_jump_url;
+            return banner_jump_url == null ? "" : banner_jump_url;
         }
 
         public void setBanner_jump_url(String banner_jump_url) {

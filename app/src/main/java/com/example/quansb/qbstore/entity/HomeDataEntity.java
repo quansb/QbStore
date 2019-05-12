@@ -7,14 +7,6 @@ public class HomeDataEntity extends BaseDataEntity {
     private ArrayList<rushGoodsEntities> rushGoodsEntities;
    private ArrayList<GoodsEntity> goodsEntities;
 
-    public ArrayList<GoodsEntity> getGoodsEntities() {
-        return goodsEntities;
-    }
-
-    public void setGoodsEntities(ArrayList<GoodsEntity> goodsEntities) {
-        this.goodsEntities = goodsEntities;
-    }
-
     public BannersEntity getBannersEntity() {
         return bannersEntity;
     }
@@ -24,11 +16,25 @@ public class HomeDataEntity extends BaseDataEntity {
     }
 
     public ArrayList<HomeDataEntity.rushGoodsEntities> getRushGoodsEntities() {
+        if (rushGoodsEntities == null) {
+            return new ArrayList<>();
+        }
         return rushGoodsEntities;
     }
 
     public void setRushGoodsEntities(ArrayList<HomeDataEntity.rushGoodsEntities> rushGoodsEntities) {
         this.rushGoodsEntities = rushGoodsEntities;
+    }
+
+    public ArrayList<GoodsEntity> getGoodsEntities() {
+        if (goodsEntities == null) {
+            return new ArrayList<>();
+        }
+        return goodsEntities;
+    }
+
+    public void setGoodsEntities(ArrayList<GoodsEntity> goodsEntities) {
+        this.goodsEntities = goodsEntities;
     }
 
     public  class rushGoodsEntities{
@@ -40,24 +46,8 @@ public class HomeDataEntity extends BaseDataEntity {
         private String goods1_id;
         private String title;
 
-        public String getGoods1_id() {
-            return goods1_id;
-        }
-
-        public void setGoods1_id(String goods1_id) {
-            this.goods1_id = goods1_id;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
         public String getLeft_url() {
-            return left_url;
+            return left_url == null ? "" : left_url;
         }
 
         public void setLeft_url(String left_url) {
@@ -65,7 +55,7 @@ public class HomeDataEntity extends BaseDataEntity {
         }
 
         public String getRight_url() {
-            return right_url;
+            return right_url == null ? "" : right_url;
         }
 
         public void setRight_url(String right_url) {
@@ -73,7 +63,7 @@ public class HomeDataEntity extends BaseDataEntity {
         }
 
         public String getLeft_name() {
-            return left_name;
+            return left_name == null ? "" : left_name;
         }
 
         public void setLeft_name(String left_name) {
@@ -81,7 +71,7 @@ public class HomeDataEntity extends BaseDataEntity {
         }
 
         public String getRight_name() {
-            return right_name;
+            return right_name == null ? "" : right_name;
         }
 
         public void setRight_name(String right_name) {
@@ -89,11 +79,27 @@ public class HomeDataEntity extends BaseDataEntity {
         }
 
         public String getGoods_id() {
-            return goods_id;
+            return goods_id == null ? "" : goods_id;
         }
 
         public void setGoods_id(String goods_id) {
             this.goods_id = goods_id;
+        }
+
+        public String getGoods1_id() {
+            return goods1_id == null ? "" : goods1_id;
+        }
+
+        public void setGoods1_id(String goods1_id) {
+            this.goods1_id = goods1_id;
+        }
+
+        public String getTitle() {
+            return title == null ? "" : title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
         }
     }
 

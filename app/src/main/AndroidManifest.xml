@@ -66,6 +66,7 @@
         <activity android:name=".activity.homeshopping.ReadyToSettle" />
         <activity android:name=".activity.homegoodspay.ConfirmAnOrderActivity" />
         <activity android:name=".activity.SelectAddressActivity" />
+        <activity android:name=".activity.addaddress.AddAddressActivity" />
 
     </application>
 

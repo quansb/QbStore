@@ -96,7 +96,12 @@ public class RequestCenter {
                 createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
     }
 
-
+    /**
+     *    得到广告图
+     * @param f_id
+     * @param listener
+     * @param clazz
+     */
     public static void toUpdateBanner(String f_id, DisposeDataListener listener, Class<?> clazz) {
         RequestParams requestParams = new RequestParams();
         requestParams.put("user_id", f_id);
@@ -228,6 +233,25 @@ public class RequestCenter {
 
 
 
+    public static void toSaveAddress(String f_id, String name,String phone,String code,String address,DisposeDataListener listener, Class<?> clazz) {
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("name",name);
+        requestParams.put("phone",phone);
+        requestParams.put("code",code);
+        requestParams.put("address", address);
+        requestParams.put("user_id", f_id);
+        requestParams.PARAMS = "AddAddress";
+        CommonOkHttpClient.post(CommonRequest.
+                createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
+    }
+    public static void toDeleteAddress(String f_id,String address_id,DisposeDataListener listener, Class<?> clazz) {
+        RequestParams requestParams = new RequestParams();
+        requestParams.put("address_id", address_id);
+        requestParams.put("user_id", f_id);
+        requestParams.PARAMS = "DeleteAddress";
+        CommonOkHttpClient.post(CommonRequest.
+                createPostRequest(requestParams), new DisposeDataHandle(listener, clazz));
+    }
 
 
 

@@ -7,6 +7,9 @@ public class SpecificationsEntity extends BaseDataEntity {
     private ArrayList<String>colors;
 
     public ArrayList<String> getSizes() {
+        if (sizes == null) {
+            return new ArrayList<>();
+        }
         return sizes;
     }
 
@@ -15,6 +18,9 @@ public class SpecificationsEntity extends BaseDataEntity {
     }
 
     public ArrayList<String> getColors() {
+        if (colors == null) {
+            return new ArrayList<>();
+        }
         return colors;
     }
 

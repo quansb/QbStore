@@ -6,6 +6,9 @@ public class AddressInfo extends BaseDataEntity {
     private ArrayList<AddressEntity>list;
 
     public ArrayList<AddressEntity> getList() {
+        if (list == null) {
+            return new ArrayList<>();
+        }
         return list;
     }
 
