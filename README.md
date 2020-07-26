@@ -1,6 +1,8 @@
 # Qbstore
 读书的时候兴趣爱好打造的一款仿天猫App
 
+![image](https://zsc-content.oss-cn-shenzhen.aliyuncs.com/qbstore/1.png)
+
 <html>
     <table style="margin-left: auto; margin-right: auto;">
         <tr> <td><img src="https://zsc-content.oss-cn-shenzhen.aliyuncs.com/qbstore/1.png" width="400" height="845"/><br/> </td>
